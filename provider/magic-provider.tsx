@@ -43,6 +43,7 @@ const MagicProvider = ({ children }: { children: ReactNode }) => {
         }
     }, []);
 
+
     const value = useMemo(() => {
         return {
             magic,
@@ -52,11 +53,11 @@ const MagicProvider = ({ children }: { children: ReactNode }) => {
 
 
     return (
-        <div>
+        <>
             <MagicContext.Provider value={value}>
                 {children}
             </MagicContext.Provider>
-        </div>
+        </>
     )
 
 };

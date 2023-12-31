@@ -14,19 +14,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en'>
-      <head>
-        <title>Seamless Wallet</title>
-        <meta name="description" content="The wallet that even your grandma can use" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <MagicProvider>
-        <ToastContainer />
+    <MagicProvider>
+      <html lang='en'>
+        <head>
+          <title>Seamless Wallet</title>
+          <meta name="description" content="The wallet that even your grandma can use" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
         <body className={inter.className}>
+          <ToastContainer />
           {children}
+          <ToastContainer />
         </body>
-        <ToastContainer />
-      </MagicProvider>
-    </html>
+      </html>
+    </MagicProvider>
   )
 }

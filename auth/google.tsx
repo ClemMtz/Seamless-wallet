@@ -48,24 +48,26 @@ const Google = ({ token, setToken }: LoginProps) => {
     };
 
     return (
-        <Card>
-            {isAuthLoading && isAuthLoading !== 'false' ? (
-                <Spinner />
-            ) : (
-                <div>
-                    <button
-                        className="social-login-button"
-                        onClick={() => {
-                            if (token.length == 0) login();
-                        }}
-                        disabled={false}
-                    >
-                        <Image src="/assets/Google.svg" alt="Google" height={24} width={24} className="mr-6" />
-                        <div className="text-xs font-semibold text-centerw-full">Continue with Google</div>
-                    </button>
-                </div>
-            )}
-        </Card>
+        <>
+            <Card>
+                {isAuthLoading && isAuthLoading !== 'false' ? (
+                    <Spinner />
+                ) : (
+                    <div>
+                        <button
+                            className="social-login-button"
+                            onClick={() => {
+                                if (token.length == 0) login();
+                            }}
+                            disabled={false}
+                        >
+                            <Image src="/assets/Google.svg" alt="Google" height={24} width={24} className="mr-6" />
+                            <div className="text-xs font-semibold text-centerw-full">Continue with Google</div>
+                        </button>
+                    </div>
+                )}
+            </Card>
+        </>
     );
 };
 export default Google;

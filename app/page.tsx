@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 
 
-import Login from '@/components/magic/login';
-import Dashboard from '@/components/magic/dashboard';
+import Login from '@/components/login';
+import Dashboard from '@/components/dashboard';
 import MagicDashboardRedirect from '@/components/magic/magic-dashboard-redirect';
+import DigitPinCode from '@/components/digit-pincode';
 
 const Home = () => {
   const [token, setToken] = useState('');
@@ -15,15 +16,15 @@ const Home = () => {
   }, [setToken]);
   return (
     <>
-      {process.env.NEXT_PUBLIC_MAGIC_API_KEY ? (
-        token.length > 0 ? (
+      {process.env.NEXT_PUBLIC_MAGIC_API_KEY && token.length > 0 ? (
+        <div>
+          <DigitPinCode />
           <Dashboard token={token} setToken={setToken} />
-        ) : (
-          <Login token={token} setToken={setToken} />
-        )
+        </div>
       ) : (
-        <MagicDashboardRedirect />
-      )}
+        <Login token={token} setToken={setToken} />
+      )
+      }
     </>
   )
 }

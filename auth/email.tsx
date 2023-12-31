@@ -23,7 +23,7 @@ const EmailOTP = ({ token, setToken }: LoginProps) => {
             try {
                 setLoginInProgress(true);
                 setEmailError(false);
-                const account = await magic?.auth.loginWithEmailOTP({ email });
+                const account = await magic?.auth.loginWithEmailOTP({ email, showUI: true });
                 if (account) {
                     saveToken(account, setToken, 'EMAIL');
                     setEmail('');
@@ -52,26 +52,28 @@ const EmailOTP = ({ token, setToken }: LoginProps) => {
     };
 
     return (
-        <Card>
-            <div className="">
-                <FormInput
-                    onChange={(e) => {
-                        if (emailError) setEmailError(false);
-                        setEmail(e.target.value);
-                    }}
-                    placeholder={token.length > 0 ? 'Already logged in' : 'Email'}
-                    value={email}
-                />
-                {emailError && <span className="error">Enter a valid email</span>}
-                <button
-                    className="login-button"
-                    disabled={isLoginInProgress || (token.length > 0 ? false : email.length == 0)}
-                    onClick={() => handleLogin()}
-                >
-                    {isLoginInProgress ? <Spinner /> : 'Log in / Sign up'}
-                </button>
-            </div>
-        </Card>
+        <>
+            <Card>
+                <div className="">
+                    <FormInput
+                        onChange={(e) => {
+                            if (emailError) setEmailError(false);
+                            setEmail(e.target.value);
+                        }}
+                        placeholder={token.length > 0 ? 'Already logged in' : 'Email'}
+                        value={email}
+                    />
+                    {emailError && <span className="error">Enter a valid email</span>}
+                    <button
+                        className="login-button"
+                        disabled={isLoginInProgress || (token.length > 0 ? false : email.length == 0)}
+                        onClick={() => handleLogin()}
+                    >
+                        {isLoginInProgress ? <Spinner /> : 'Log in / Sign up'}
+                    </button>
+                </div>
+            </Card>
+        </>
     );
 };
 

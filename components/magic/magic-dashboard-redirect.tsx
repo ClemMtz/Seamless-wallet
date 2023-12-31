@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import DevLinks from './dev-links';
 import Image from 'next/image';
 
 
@@ -33,7 +32,6 @@ const MagicDashboardRedirect = () => {
                     <Image src="assets/link_white.svg" alt="link-icon" width={24} height={24} className="ml-[6px] my-auto" />
                 </button>
             </div>
-            <DevLinks />
         </div>
     );
 };

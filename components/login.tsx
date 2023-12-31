@@ -1,13 +1,12 @@
 import { LoginProps } from '@/utils/types'
 
-import EmailOTP from '../../auth/email';
-import Google from '../../auth/google';
-import Logo from '../ui/logo';
+import EmailOTP from '../auth/email';
+import Google from '../auth/google';
+import Logo from './ui/logo';
 
 
 const Login = ({ token, setToken }: LoginProps) => {
     return (
-
         <div className=" w-screen h-screen  flex flex-col justify-center items-center  bg-white">
             <Logo />
             <div>

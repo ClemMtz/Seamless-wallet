@@ -14,6 +14,7 @@ const FormInput = ({ value, onChange, placeholder }: Props) => {
             onChange={onChange}
             placeholder={placeholder}
         />
+
     )
 }
 
