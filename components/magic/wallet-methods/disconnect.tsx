@@ -1,4 +1,4 @@
-
+"use client";
 
 import React, { useCallback, useState } from 'react';
 import { logout } from '@/utils/common';

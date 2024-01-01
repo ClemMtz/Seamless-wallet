@@ -1,4 +1,4 @@
-
+"use client"
 
 import React, { useCallback, useState } from 'react';
 import ErrorText from '@/components/ui/error-text';

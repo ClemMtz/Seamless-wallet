@@ -4,6 +4,7 @@ import { useMagic } from '../provider/magic-provider';
 import showToast from '@/utils/show-toast';
 import Spinner from '@/components/ui/spinner';
 import { RPCError, RPCErrorCode } from 'magic-sdk';
+
 import { LoginProps } from '@/utils/types';
 import { saveToken } from '@/utils/common';
 import Card from '@/components/ui/card';
