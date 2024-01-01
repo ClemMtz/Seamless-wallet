@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 import Login from '@/components/login';
 import Dashboard from '@/components/dashboard';
-import MagicDashboardRedirect from '@/components/magic/magic-dashboard-redirect';
 import DigitPinCode from '@/components/digit-pincode';
 
 const Home = () => {
