@@ -10,7 +10,6 @@ import Card from '@/components/ui/card';
 import CardHeader from '@/components/ui/card-header';
 import { getFaucetUrl, getNetworkToken } from '@/utils/network';
 import showToast from '@/utils/show-toast';
-import Spacer from '@/components/ui/spacer';
 import TransactionHistory from '@/components/ui/transaction-history';
 import Image from 'next/image';
 
@@ -99,7 +98,6 @@ const SendTransaction = () => {
 
             {hash ? (
                 <>
-                    <Spacer size={20} />
                     <TransactionHistory />
                 </>
             ) : null}

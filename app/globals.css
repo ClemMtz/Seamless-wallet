@@ -113,7 +113,7 @@ ul {
 }
 
 .home-page {
-  @apply flex flex-col justify-center items-center min-h-screen relative bg-[length:100vw_320px] bg-no-repeat bg-[url('/main.svg')];
+  @apply flex flex-col justify-center items-center min-h-screen bg-white;
 }
 
 .login-page {
@@ -308,9 +308,6 @@ ul {
   @apply h-1.5 w-1.5 bg-[#00cc8f] mr-2.5 rounded-[50%];
 }
 
-.connected {
-  @apply text-base mx-0 my-[5px];
-}
 
 a {
   all: unset;
@@ -349,53 +346,4 @@ a {
 
 .api-button {
   @apply bg-[#6844bc] text-[#FFFFFF] flex w-[280px] justify-center items-center h-12 font-semibold text-base leading-6 transition-[0.1s] px-6 py-3 rounded-[300px] border-[none];
-}
-
-
-
-
-
-.screen1 {
-  min-height: 100vh;
-  background: burlywood;
-}
-
-.screen2 {
-  min-height: 100vh;
-  background: rgb(82, 82, 63);
-}
-
-.screen3 {
-  background: rgb(70, 70, 54);
-  text-align: center;
-}
-
-.pattern {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  flex-direction: column;
-  color: #fff;
-  font-weight: bold;
-  padding: 20px 0;
-}
-
-h2 {
-  text-align: center;
-  padding-top: 27px;
-}
-
-.reset {
-  text-align: center;
-}
-
-.error {
-  color: red;
-  text-align: center;
-  font-size: 150%;
-}
-
-.reset {
-  height: 70px;
 }

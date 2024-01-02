@@ -9,7 +9,7 @@ import Card from '@/components/ui/card';
 import CardHeader from '@/components/ui/card-header';
 import CardLabel from '@/components/ui/card-label';
 import Spinner from '@/components/ui/spinner';
-import { getNetworkName, getNetworkToken } from '@/utils/network';
+import { getNetworkToken } from '@/utils/network';
 
 const UserInfo = ({ token, setToken }: LoginProps) => {
     const { magic, web3 } = useMagic();
@@ -21,6 +21,9 @@ const UserInfo = ({ token, setToken }: LoginProps) => {
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
     useEffect(() => {
+        if (magic) {
+            magic.wallet.showAddress()
+        }
         const checkLoginandGetBalance = async () => {
             const isLoggedIn = await magic?.user.isLoggedIn();
             if (isLoggedIn) {
@@ -85,33 +88,32 @@ const UserInfo = ({ token, setToken }: LoginProps) => {
     }, [copied, publicAddress]);
 
     return (
-        <Card>
-            <CardHeader id="Wallet">Wallet</CardHeader>
-            <CardLabel leftHeader="Status" rightAction={<div onClick={disconnect}>Disconnect</div>} isDisconnect />
-            <div className="flex-row">
-                <div className="green-dot" />
-                <div className="connected">Connected to {getNetworkName()}</div>
+        <>
+            <div className='flex flex-row'>
+                <button onClick={disconnect}>Disconnect</button>
             </div>
-            <Divider />
-            <CardLabel leftHeader="Address" rightAction={!publicAddress ? <Spinner /> : <div onClick={copy}>{copied}</div>} />
-            <div className="code">{publicAddress?.length == 0 ? 'Fetching address..' : publicAddress}</div>
-            <Divider />
-            <CardLabel
-                leftHeader="Balance"
-                rightAction={
-                    isRefreshing ? (
-                        <div className="loading-container">
-                            <Spinner />
-                        </div>
-                    ) : (
-                        <div onClick={refresh}>Refresh</div>
-                    )
-                }
-            />
-            <div className="code">
-                {balance.substring(0, 7)} {getNetworkToken()}
-            </div>
-        </Card>
+            <Card>
+                <Divider />
+                <CardLabel leftHeader="Address" rightAction={!publicAddress ? <Spinner /> : <div onClick={copy}>{copied}</div>} />
+                <div className="code">{publicAddress?.length == 0 ? 'Fetching address..' : publicAddress}</div>
+                <Divider />
+                <CardLabel
+                    leftHeader="Balance"
+                    rightAction={
+                        isRefreshing ? (
+                            <div className="loading-container">
+                                <Spinner />
+                            </div>
+                        ) : (
+                            <div onClick={refresh}>Refresh</div>
+                        )
+                    }
+                />
+                <div className="code">
+                    {balance.substring(0, 7)} {getNetworkToken()}
+                </div>
+            </Card>
+        </>
     );
 };
 

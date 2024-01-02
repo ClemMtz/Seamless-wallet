@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-
 import Login from '@/components/login';
 import Dashboard from '@/components/dashboard';
-
 
 const Home = () => {
   const [token, setToken] = useState('');
