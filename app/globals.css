@@ -268,17 +268,13 @@ ul {
 }
 
 .action-button {
-  @apply font-semibold text-[#6851ff] cursor-pointer transition-[0.1s];
+  @apply font-semibold text-[#296982] cursor-pointer;
 }
 
 .disconnect-button {
   @apply font-semibold text-[#d43100] cursor-pointer transition-[0.1s];
 }
 
-.action-button:hover,
-.disconnect-button:hover {
-  @apply opacity-70;
-}
 
 .action-button:active,
 .disconnect-button:active {
