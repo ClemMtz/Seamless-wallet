@@ -2,8 +2,7 @@
 
 import React, { useCallback, useState } from 'react';
 import ErrorText from '@/components/ui/error-text';
-import Spacer from '@/components/ui/spacer';
-import { useMagic } from '../../../provider/magic-provider';
+import { useMagic } from '../../provider/magic-provider';
 import Spinner from '@/components/ui/spinner';
 import FormInput from '@/components/ui/form-input';
 import showToast from '@/utils/show-toast';
@@ -61,7 +60,6 @@ const UpdateEmail = () => {
             </div>
             {emailError ? (
                 <div className="mb-[-10px]">
-                    <Spacer size={20} />
                     <ErrorText>Enter a valid email!</ErrorText>
                 </div>
             ) : null}
