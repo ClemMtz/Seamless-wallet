@@ -1,7 +1,8 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
+
 import { LoginProps } from '@/utils/types';
-import { logout } from '@/utils/common';
 import { useMagic } from '@/provider/magic-provider';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -9,14 +10,17 @@ import UserInfos from './ui/user-info';
 import Buttons from './ui/buttons'
 import TransactionHistory from './ui/transaction-history';
 
+import { VscAccount } from "react-icons/vsc";
+
 
 
 
 
 export default function Dashboard({ setToken }: LoginProps) {
     const { magic, web3 } = useMagic();
-    const [balance, setBalance] = useState("");
+    const router = useRouter();
 
+    const [balance, setBalance] = useState("");
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
     function truncateAddress(publicAddress: string) {
@@ -28,11 +32,6 @@ export default function Dashboard({ setToken }: LoginProps) {
         return truncatedAddress;
     }
 
-    const disconnect = useCallback(async () => {
-        if (magic) {
-            await logout(setToken, magic);
-        }
-    }, [magic, setToken]);
 
     useEffect(() => {
         const checkLoginandGetBalance = async () => {
@@ -80,17 +79,21 @@ export default function Dashboard({ setToken }: LoginProps) {
 
     const showAdress = () => {
         magic?.wallet.showAddress()
-    }
+    };
 
     const sendToken = () => {
         magic?.wallet.showSendTokensUI()
-    }
+    };
+
+    const openAccountOptions = () => {
+        router.push("/account");
+    };
 
 
     return (
         <div className="bg-white h-screen w-screen">
             <div className='flex justify-end p-4'>
-                <button className='w-24 h-10 rounded-lg  text-[#296982] text-xl mb-28' onClick={disconnect}>Log out</button>
+                <button className=' mb-28' onClick={openAccountOptions}><VscAccount size={30} /></button>
             </div>
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
