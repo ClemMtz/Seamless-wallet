@@ -44,26 +44,27 @@ const UpdateEmail = () => {
     };
 
     return (
-        <div className="wallet-method-container">
+        <div className="text-right">
+            <div className='mb-4'>
+                {
+                    emailError ? (
+                        <div className='h-0'>
+                            <ErrorText>Enter a valid email</ErrorText>
+                        </div>
+                    ) : null}
+            </div>
             <FormInput value={email} onChange={handleEmailChange} placeholder="New Email" />
-            <button className="wallet-method" onClick={updateEmail} disabled={disabled}>
+            <button className="text-[#3b92b4] text-lg" onClick={updateEmail} disabled={disabled}>
                 {disabled ? (
-                    <div className="loading-container w-[76px]">
+                    <div className="loading-container w-[76px] flex">
                         <Spinner />
                     </div>
                 ) : (
-                    'updateEmail()'
-                )}
-            </button>
-            <div className="wallet-method-desc">
-                Initiates the update email flow that allows a user to change their email address.
-            </div>
-            {emailError ? (
-                <div className="mb-[-10px]">
-                    <ErrorText>Enter a valid email!</ErrorText>
-                </div>
-            ) : null}
-        </div>
+                    'Update'
+                )
+                }
+            </button >
+        </div >
     );
 };
 

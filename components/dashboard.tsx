@@ -2,15 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 
-import { LoginProps } from '@/utils/types';
 import { useMagic } from '@/provider/magic-provider';
 import { useCallback, useEffect, useState } from 'react';
 
+import { logout } from '@/utils/common';
 import UserInfos from './ui/user-info';
 import Buttons from './ui/buttons'
 import TransactionHistory from './ui/transaction-history';
 
 import { VscAccount } from "react-icons/vsc";
+import { LoginProps } from '@/utils/types';
 
 
 
@@ -31,7 +32,6 @@ export default function Dashboard({ setToken }: LoginProps) {
         const truncatedAddress = `${publicAddress?.substring(0, maxLength / 2)}...${publicAddress?.substring(publicAddress?.length - maxLength / 2)}`;
         return truncatedAddress;
     }
-
 
     useEffect(() => {
         const checkLoginandGetBalance = async () => {
@@ -89,11 +89,19 @@ export default function Dashboard({ setToken }: LoginProps) {
         router.push("/account");
     };
 
+    const disconnect = useCallback(async () => {
+        if (magic) {
+            await logout(setToken, magic);
+            router.push("/");
+        }
+    }, [magic, setToken]);
+
 
     return (
         <div className="bg-white h-screen w-screen">
-            <div className='flex justify-end p-4'>
-                <button className=' mb-28' onClick={openAccountOptions}><VscAccount size={30} /></button>
+            <div className='flex flex-row justify-between mb-24 p-6'>
+                <button className='' onClick={openAccountOptions}><VscAccount size={30} /></button>
+                <button onClick={disconnect} className='text-[#3b92b4] text-lg'>Log out</button>
             </div>
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />

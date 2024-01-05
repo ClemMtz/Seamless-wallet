@@ -180,7 +180,7 @@ ul {
 }
 
 .wallet-method-container {
-  @apply text-left;
+  @apply text-right;
 }
 
 .wallet-method {
@@ -289,7 +289,7 @@ ul {
 }
 
 .error {
-  @apply self-start text-xs font-semibold text-red-700 justify-self-start;
+  @apply self-start text-xs font-semibold text-red-500 justify-self-start;
 }
 
 .divider {
