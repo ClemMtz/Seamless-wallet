@@ -32,3 +32,21 @@ export interface ApiParams {
     sort: string;
     apikey: string;
 }
+
+export type Payment = {
+    id: string
+    amount: number
+    status: "pending" | "processing" | "success" | "failed"
+    email: string;
+}
+
+export type ExtractedData = {
+    valueInUSD: number;
+    from: string;
+    to: string;
+    hash: string;
+}
+
+export type TransactionHistoryTypes = {
+    balance: string;
+}

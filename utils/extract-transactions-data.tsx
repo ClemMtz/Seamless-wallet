@@ -2,7 +2,7 @@ import { Transaction } from './types';
 import { API_MATIC_TO_DOLLAR } from './api-urls';
 
 export const extractTransactionsData = async (transaction: Transaction) => {
-    const { value, from, to } = transaction;
+    const { value, from, to, hash } = transaction;
 
     try {
         const response = await fetch(API_MATIC_TO_DOLLAR);
@@ -20,7 +20,7 @@ export const extractTransactionsData = async (transaction: Transaction) => {
 
         const valueInUSD = value * exchangeRate;
 
-        return { valueInUSD, from, to };
+        return { valueInUSD, from, to, hash };
     } catch (error) {
         console.error('Error during transaction data extraction:', error);
         return null;

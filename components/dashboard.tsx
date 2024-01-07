@@ -42,7 +42,7 @@ export default function Dashboard({ setToken }: LoginProps) {
                         setPublicAddress(metadata?.publicAddress!);
                     }
                 } catch (e) {
-                    console.log('error in fetching address: ' + e);
+                    console.error('error in fetching address: ' + e);
                 }
             }
         };
@@ -61,7 +61,6 @@ export default function Dashboard({ setToken }: LoginProps) {
             const balanceInUSD = (parseFloat(balanceInEther) * exchangeRate).toFixed(2);
 
             setBalance(balanceInUSD);
-            console.log('BALANCE: ', balanceInUSD);
         }
     }, [web3, publicAddress]);
 
@@ -108,7 +107,7 @@ export default function Dashboard({ setToken }: LoginProps) {
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
                 <Buttons sendToken={sendToken} showAdress={showAdress} />
-                <TransactionHistory />
+                <TransactionHistory balance={balance} />
             </div>
         </div>
 
