@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { RxCross2 } from "react-icons/rx";
 
-import UpdateEmail from '@/components/magic/update-email';
+import UpdateEmail from '@/components/update-email';
 
 const Account = () => {
     const router = useRouter();

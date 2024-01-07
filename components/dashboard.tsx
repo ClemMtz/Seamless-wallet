@@ -12,9 +12,7 @@ import TransactionHistory from './ui/transaction-history';
 
 import { VscAccount } from "react-icons/vsc";
 import { LoginProps } from '@/utils/types';
-
-
-
+import { API_MATIC_TO_DOLLAR } from '@/utils/api-urls';
 
 
 export default function Dashboard({ setToken }: LoginProps) {
@@ -53,13 +51,17 @@ export default function Dashboard({ setToken }: LoginProps) {
 
     const getBalance = useCallback(async () => {
         if (publicAddress && web3) {
-            const balance = await web3.eth.getBalance(publicAddress);
-            if (balance == BigInt(0)) {
-                setBalance('0');
-            } else {
-                setBalance(web3.utils.fromWei(balance, 'ether'));
-            }
-            console.log('BALANCE: ', balance);
+            const balanceInWei = await web3.eth.getBalance(publicAddress);
+            const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
+
+            const response = await fetch(API_MATIC_TO_DOLLAR);
+            const exchangeRateData = await response.json();
+            const exchangeRate = exchangeRateData.USD;
+
+            const balanceInUSD = (parseFloat(balanceInEther) * exchangeRate).toFixed(2);
+
+            setBalance(balanceInUSD);
+            console.log('BALANCE: ', balanceInUSD);
         }
     }, [web3, publicAddress]);
 

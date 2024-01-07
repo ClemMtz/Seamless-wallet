@@ -6,3 +6,29 @@ export type LoginProps = {
 }
 
 export type { Magic } from '@/provider/magic-provider'
+
+export interface Transaction {
+    blockNumber: string;
+    timeStamp: string;
+    hash: string;
+    from: string;
+    to: string;
+    value: number;
+    gas: string;
+    gasPrice: string;
+    isError: string;
+    txreceipt_status: string;
+    input: string;
+}
+
+export interface ApiParams {
+    module: string;
+    action: string;
+    address: string;
+    startblock: number;
+    endblock: number;
+    page: number;
+    offset: number;
+    sort: string;
+    apikey: string;
+}
