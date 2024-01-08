@@ -50,3 +50,8 @@ export type ExtractedData = {
 export type TransactionHistoryTypes = {
     balance: string;
 }
+
+export type TransactionTableProps = {
+    columns: string[];
+    rows: { [key: string]: string | number }[];
+}

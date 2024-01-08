@@ -6,9 +6,9 @@ import { useMagic } from '@/provider/magic-provider';
 import { useCallback, useEffect, useState } from 'react';
 
 import { logout } from '@/utils/common';
-import UserInfos from './ui/user-info';
-import Buttons from './ui/buttons'
-import TransactionHistory from './ui/transaction-history';
+import UserInfos from './user-info';
+import Buttons from './buttons'
+import TransactionHistory from './transaction-history';
 
 import { VscAccount } from "react-icons/vsc";
 import { LoginProps } from '@/utils/types';

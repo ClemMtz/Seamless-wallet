@@ -8,7 +8,11 @@ export const extractTransactionsData = async (transaction: Transaction) => {
         const response = await fetch(API_MATIC_TO_DOLLAR);
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch exchange rate. Status: ${response.status}`);
+            if (response.status === 500) {
+                throw new Error('Internal Server Error when fetching exchange rate');
+            } else {
+                throw new Error(`Failed to fetch exchange rate. Status: ${response.status}`);
+            }
         }
 
         const exchangeRateData = await response.json();
