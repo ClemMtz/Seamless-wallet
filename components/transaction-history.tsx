@@ -9,7 +9,7 @@ import { ExtractedData, TransactionHistoryTypes } from '@/utils/types';
 import TransactionTable from './ui/transactions-table';
 
 
-const TransactionHistory = ({ balance }: TransactionHistoryTypes) => {
+const TransactionHistory = ({ balance, truncateAdress }: TransactionHistoryTypes) => {
     const publicAddress = localStorage.getItem('user');
     const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
 
@@ -39,15 +39,11 @@ const TransactionHistory = ({ balance }: TransactionHistoryTypes) => {
 
     }, [balance, publicAddress]);
 
-    const truncateAddress = (address: string) => {
-        const truncatedAddress = `${address.slice(0, 8)}...${address.slice(-6)}`;
-        return truncatedAddress;
-    };
 
     const columns = ['From', 'To', 'Amount'];
     const rows = transactionData.map(transaction => ({
-        From: truncateAddress(transaction.from),
-        To: truncateAddress(transaction.to),
+        From: truncateAdress(transaction.from),
+        To: truncateAdress(transaction.to),
         Amount: `$ ${Number(transaction.valueInUSD / 1e18).toFixed(3)}`,
     }));
 

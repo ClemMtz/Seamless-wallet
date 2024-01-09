@@ -22,14 +22,10 @@ export default function Dashboard({ setToken }: LoginProps) {
     const [balance, setBalance] = useState("");
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
-    function truncateAddress(publicAddress: string) {
-        const maxLength = 20;
-        if (publicAddress?.length <= maxLength) {
-            return publicAddress;
-        }
-        const truncatedAddress = `${publicAddress?.substring(0, maxLength / 2)}...${publicAddress?.substring(publicAddress?.length - maxLength / 2)}`;
+    const truncateAddress = (address: string) => {
+        const truncatedAddress = `${address.slice(0, 8)}...${address.slice(-6)}`;
         return truncatedAddress;
-    }
+    };
 
     useEffect(() => {
         const checkLoginandGetBalance = async () => {
@@ -107,7 +103,7 @@ export default function Dashboard({ setToken }: LoginProps) {
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
                 <Buttons sendToken={sendToken} showAdress={showAdress} />
-                <TransactionHistory balance={balance} />
+                <TransactionHistory balance={balance} truncateAdress={truncateAddress} />
             </div>
         </div>
 

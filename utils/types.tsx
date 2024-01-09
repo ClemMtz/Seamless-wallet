@@ -49,6 +49,7 @@ export type ExtractedData = {
 
 export type TransactionHistoryTypes = {
     balance: string;
+    truncateAdress: (params: string) => string;
 }
 
 export type TransactionTableProps = {
