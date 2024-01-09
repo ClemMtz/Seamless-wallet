@@ -1,39 +1,60 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import fetchMock from 'fetch-mock-jest';
 import '@testing-library/jest-dom';
-import TransactionHistory from '@/components/transaction-history';
+import axios from 'axios';
 
-beforeEach(() => {
-    fetchMock.reset();
+import { getTransactions } from '@/actions/get-transactions'; // Update the import path accordingly
+
+// Mocking axios
+jest.mock('axios');
+
+describe('getTransactions Function', () => {
+    it('should fetch transactions successfully', async () => {
+        // Mocking the Axios response
+        const mockApiResponse = {
+            data: {
+                result: [
+                    // Your mock transaction data here
+                ],
+            },
+        };
+
+        axios.get.mockResolvedValueOnce(mockApiResponse);
+
+        // Call the getTransactions function with mock data
+        const apiKey = 'yourApiKey';
+        const transactions = await getTransactions('mockedAddress', 0, 99999999, 1, 10, 'asc', apiKey);
+
+        // Assertions
+        expect(axios.get).toHaveBeenCalledWith(expect.any(String), {
+            params: {
+                module: 'account',
+                action: 'txlist',
+                address: 'mockedAddress',
+                startblock: 0,
+                endblock: 99999999,
+                page: 1,
+                offset: 10,
+                sort: 'asc',
+                apikey: apiKey,
+            },
+        });
+        expect(transactions).toEqual(mockApiResponse.data.result);
+
+        // Other assertions or interactions if needed
+    });
+
+    it('should handle errors when fetching transactions', async () => {
+        // Mocking the Axios error
+        const mockError = new Error('Mocked error message');
+        axios.get.mockRejectedValueOnce(mockError);
+
+        // Assertions
+        await expect(getTransactions('mockedAddress', 0, 99999999, 1, 10, 'asc', 'yourApiKey')).rejects.toThrowError(
+            'Mocked error message'
+        );
+
+        // Other assertions or interactions if needed
+    });
 });
 
-test('renders transaction data after fetching', async () => {
 
-    jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValueOnce('sampleUserAddress');
-
-    fetchMock.mock('https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=USD', [
-        { value: 100, from: 'MATIC', to: 'USD' },
-        { value: 200, from: 'ETH', to: 'USD' },
-    ]);
-
-    render(<TransactionHistory balance={"1000"} />);
-
-    await waitFor(() => screen.getByText('From'));
-
-    expect(screen.getByText('MATIC...USD')).toBeInTheDocument();
-    expect(screen.getByText('ETH...USD')).toBeInTheDocument();
-});
-
-test('handles error during data fetching', async () => {
-
-    jest.spyOn(window.localStorage.__proto__, 'getItem').mockReturnValueOnce('sampleUserAddress');
-
-    fetchMock.mock('https://api-testnet.polygonscan.com/api', 500);
-
-    render(<TransactionHistory balance={"1000"} />);
-
-    await waitFor(() => screen.getByText('Error fetching transactions'));
-
-    expect(screen.getByText('Error fetching transactions:')).toBeInTheDocument();
-});
 
