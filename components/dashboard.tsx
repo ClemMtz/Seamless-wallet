@@ -22,8 +22,11 @@ export default function Dashboard({ setToken }: LoginProps) {
     const [balance, setBalance] = useState("");
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
-    const truncateAddress = (address: string) => {
-        const truncatedAddress = `${address.slice(0, 8)}...${address.slice(-6)}`;
+    const truncateAddress = (address: string | undefined) => {
+        if (!address) {
+            return "";
+        }
+        const truncatedAddress = `${address.slice(0, 6)}...${address.slice(-6)}`;
         return truncatedAddress;
     };
 

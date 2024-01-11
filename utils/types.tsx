@@ -44,7 +44,7 @@ export type ExtractedData = {
     valueInUSD: number;
     from: string;
     to: string;
-    hash: string;
+    timestamp: string;
 }
 
 export type TransactionHistoryTypes = {
@@ -54,5 +54,5 @@ export type TransactionHistoryTypes = {
 
 export type TransactionTableProps = {
     columns: string[];
-    rows: { [key: string]: string | number }[];
+    rows: { [key: string]: string | number | string[] }[];
 }

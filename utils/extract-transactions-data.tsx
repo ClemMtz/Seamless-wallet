@@ -2,7 +2,7 @@ import { Transaction } from './types';
 import { API_MATIC_TO_DOLLAR } from './api-urls';
 
 export const extractTransactionsData = async (transaction: Transaction) => {
-    const { value, from, to, hash } = transaction;
+    const { value, from, to, timeStamp } = transaction;
 
     try {
         const response = await fetch(API_MATIC_TO_DOLLAR);
@@ -24,7 +24,22 @@ export const extractTransactionsData = async (transaction: Transaction) => {
 
         const valueInUSD = value * exchangeRate;
 
-        return { valueInUSD, from, to, hash };
+
+        // convert timeStamp into human readable time
+        const convertTimestamp = (timestamp: any) => {
+            let d = new Date(timestamp * 1000);
+            let yyyy = d.getFullYear();
+            let mm = ('0' + (d.getMonth() + 1)).slice(-2);
+            let dd = ('0' + d.getDate()).slice(-2);
+
+            const time = yyyy + '-' + mm + '-' + dd;
+            return time;
+        }
+
+        const timestamp = convertTimestamp(timeStamp);
+
+
+        return { valueInUSD, from, to, timestamp };
     } catch (error) {
         console.error('Error during transaction data extraction:', error);
         return null;

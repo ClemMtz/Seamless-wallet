@@ -12,6 +12,7 @@ import TransactionTable from './ui/transactions-table';
 const TransactionHistory = ({ balance, truncateAdress }: TransactionHistoryTypes) => {
     const publicAddress = localStorage.getItem('user');
     const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
+    console.log(transactionData)
 
     useEffect(() => {
         const fetchTransactionsData = async () => {
@@ -41,8 +42,9 @@ const TransactionHistory = ({ balance, truncateAdress }: TransactionHistoryTypes
 
 
     const columns = ['From', 'To', 'Amount'];
-    const rows = transactionData.map(transaction => ({
+    const rows = transactionData.map((transaction) => ({
         From: truncateAdress(transaction.from),
+        Date: transaction.timestamp,
         To: truncateAdress(transaction.to),
         Amount: `$ ${Number(transaction.valueInUSD / 1e18).toFixed(3)}`,
     }));

@@ -19,6 +19,8 @@ describe('extractTransactionsData', () => {
             value: 100,
             from: 'MATIC',
             to: 'USD',
+            timeStamp: "NaN-aN-aN"
+
         };
 
         const result = await extractTransactionsData(sampleTransaction);
@@ -29,6 +31,7 @@ describe('extractTransactionsData', () => {
             valueInUSD: 125, // 100 * 1.25
             from: 'MATIC',
             to: 'USD',
+            timestamp: "NaN-aN-aN"
         });
     });
 
@@ -45,6 +48,7 @@ describe('extractTransactionsData', () => {
             value: 100,
             from: 'MATIC',
             to: 'USD',
+            timeStamp: "NaN-aN-aN"
         };
 
         const result = await extractTransactionsData(sampleTransaction);
