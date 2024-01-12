@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { logout } from '@/utils/common';
 import UserInfos from './user-info';
-import Buttons from './buttons'
+import Buttons from './buttons';
 import TransactionHistory from './transaction-history';
 
 import { VscAccount } from "react-icons/vsc";
@@ -15,7 +15,7 @@ import { LoginProps } from '@/utils/types';
 import { API_MATIC_TO_DOLLAR } from '@/utils/api-urls';
 
 
-export default function Dashboard({ setToken }: LoginProps) {
+const Dashboard = ({ setToken }: LoginProps) => {
     const { magic, web3 } = useMagic();
     const router = useRouter();
 
@@ -106,9 +106,11 @@ export default function Dashboard({ setToken }: LoginProps) {
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
                 <Buttons sendToken={sendToken} showAdress={showAdress} />
-                <TransactionHistory balance={balance} truncateAdress={truncateAddress} />
+                <TransactionHistory balance={balance} truncateAdress={truncateAddress} publicAdress={publicAddress} />
             </div>
         </div>
 
     );
 }
+
+export default Dashboard;

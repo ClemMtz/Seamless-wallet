@@ -20,13 +20,14 @@
 
 html,
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   @apply m-0 p-0 bg-[#f8f8fa] scroll-pt-12;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
 }
+
 
 nav>ul>li {
   @layer text-left list-none text-[#777679] cursor-pointer mb-[15px];

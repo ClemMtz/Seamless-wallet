@@ -1,10 +1,11 @@
+import { ButtonTypes } from '@/utils/types';
 import React from 'react'
 import { FiPlus } from "react-icons/fi";
 import { FiSend } from "react-icons/fi";
 import { GoArrowDown } from "react-icons/go";
 
 
-const Buttons = ({ sendToken, showAdress }) => {
+const Buttons = ({ sendToken, showAdress }: ButtonTypes) => {
     return (
         <div className='flex flex-row gap-16 mb-16'>
             <button className='flex flex-col items-center gap-2'>

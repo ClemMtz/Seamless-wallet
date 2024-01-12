@@ -33,13 +33,6 @@ export interface ApiParams {
     apikey: string;
 }
 
-export type Payment = {
-    id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
-    email: string;
-}
-
 export type ExtractedData = {
     valueInUSD: number;
     from: string;
@@ -50,9 +43,16 @@ export type ExtractedData = {
 export type TransactionHistoryTypes = {
     balance: string;
     truncateAdress: (params: string) => string;
+    publicAdress: string | null;
 }
 
 export type TransactionTableProps = {
     columns: string[];
     rows: { [key: string]: string | number | string[] }[];
 }
+
+export type ButtonTypes = {
+    sendToken: () => void;
+    showAdress: () => void;
+}
+

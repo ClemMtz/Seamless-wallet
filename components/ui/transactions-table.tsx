@@ -11,7 +11,7 @@ const TransactionTable = ({ columns, rows }: TransactionTableProps) => {
                     ))}
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="overflow-auto h-40 scrollbar-thumb-gray-300  scrollbar-track-transparent scrollbar-thin">
                 {rows.map((row, rowIndex) => (
                     <tr key={rowIndex} >
                         {columns.map((column, colIndex) => (
