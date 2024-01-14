@@ -77,7 +77,7 @@ const Dashboard = ({ setToken }: LoginProps) => {
         setBalance("");
     }, [magic]);
 
-    const showAdress = () => {
+    const showAddress = () => {
         magic?.wallet.showAddress()
     };
 
@@ -105,8 +105,8 @@ const Dashboard = ({ setToken }: LoginProps) => {
             </div>
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
-                <Buttons sendToken={sendToken} showAdress={showAdress} />
-                <TransactionHistory balance={balance} truncateAdress={truncateAddress} publicAdress={publicAddress} />
+                <Buttons sendToken={sendToken} showAddress={showAddress} />
+                <TransactionHistory balance={balance} truncateAddress={truncateAddress} publicAddress={publicAddress} />
             </div>
         </div>
 

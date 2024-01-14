@@ -8,14 +8,14 @@ import { ExtractedData, TransactionHistoryTypes } from '@/utils/types';
 import TransactionTable from './ui/transactions-table';
 
 
-const TransactionHistory = ({ balance, truncateAdress, publicAdress }: TransactionHistoryTypes) => {
+const TransactionHistory = ({ balance, truncateAddress, publicAddress }: TransactionHistoryTypes) => {
     const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
 
     useEffect(() => {
         const fetchTransactionsData = async () => {
             try {
                 const apiKey = process.env.API_TOKEN_POLYGON;
-                const address = publicAdress;
+                const address = publicAddress;
 
                 const transactions = await getTransactions(address as string, 0, 99999999, 1, 10, 'asc', apiKey as string) || [];
 
@@ -35,14 +35,14 @@ const TransactionHistory = ({ balance, truncateAdress, publicAdress }: Transacti
 
         fetchTransactionsData();
 
-    }, [balance, publicAdress]);
+    }, [balance, publicAddress]);
 
 
     const columns = ['From', 'To', 'Amount'];
     const rows = transactionData.map((transaction) => ({
-        From: truncateAdress(transaction.from),
+        From: truncateAddress(transaction.from),
         Date: transaction.timestamp,
-        To: truncateAdress(transaction.to),
+        To: truncateAddress(transaction.to),
         Amount: `$ ${Number(transaction.valueInUSD / 1e18).toFixed(3)}`,
     }));
 

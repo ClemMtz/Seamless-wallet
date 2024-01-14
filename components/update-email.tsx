@@ -44,7 +44,7 @@ const UpdateEmail = () => {
     };
 
     return (
-        <div className="text-right">
+        <div className="text-right h-32 pt-2">
             <div className='mb-4'>
                 {
                     emailError ? (

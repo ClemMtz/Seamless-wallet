@@ -21,7 +21,6 @@ const Google = ({ token, setToken }: LoginProps) => {
             try {
                 if (magic) {
                     const result = await magic?.oauth.getRedirectResult();
-                    //do stuff with user profile data
                     saveToken(result.magic.idToken, setToken, 'SOCIAL');
                     setLoadingFlag('false');
                 }

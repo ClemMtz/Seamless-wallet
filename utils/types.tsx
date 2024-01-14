@@ -7,7 +7,7 @@ export type LoginProps = {
 
 export type { Magic } from '@/provider/magic-provider'
 
-export interface Transaction {
+export type Transaction = {
     blockNumber: string;
     timeStamp: string;
     hash: string;
@@ -21,17 +21,7 @@ export interface Transaction {
     input: string;
 }
 
-export interface ApiParams {
-    module: string;
-    action: string;
-    address: string;
-    startblock: number;
-    endblock: number;
-    page: number;
-    offset: number;
-    sort: string;
-    apikey: string;
-}
+
 
 export type ExtractedData = {
     valueInUSD: number;
@@ -42,8 +32,8 @@ export type ExtractedData = {
 
 export type TransactionHistoryTypes = {
     balance: string;
-    truncateAdress: (params: string) => string;
-    publicAdress: string | null;
+    truncateAddress: (params: string) => string;
+    publicAddress: string | null;
 }
 
 export type TransactionTableProps = {
@@ -53,6 +43,6 @@ export type TransactionTableProps = {
 
 export type ButtonTypes = {
     sendToken: () => void;
-    showAdress: () => void;
+    showAddress: () => void;
 }
 

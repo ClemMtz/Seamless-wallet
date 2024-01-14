@@ -55,7 +55,7 @@ const EmailOTP = ({ token, setToken }: LoginProps) => {
     return (
         <>
             <Card>
-                <div className="">
+                <div>
                     <FormInput
                         onChange={(e) => {
                             if (emailError) setEmailError(false);
