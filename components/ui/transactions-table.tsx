@@ -11,11 +11,11 @@ const TransactionTable = ({ columns, rows }: TransactionTableProps) => {
                     ))}
                 </tr>
             </thead>
-            <tbody className="overflow-auto h-40 scrollbar-thumb-gray-300  scrollbar-track-transparent scrollbar-thin">
+            <tbody className="overflow-auto h-[11rem] scrollbar-none">
                 {rows.map((row, rowIndex) => (
                     <tr key={rowIndex} >
                         {columns.map((column, colIndex) => (
-                            <td className="p-2" key={colIndex}>
+                            <td className="pt-1 pb-2 pr-2 pl-4" key={colIndex}>
                                 {column === 'From' ? (
                                     <>
                                         <span className="text-gray-600">{row.Date}</span>
