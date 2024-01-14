@@ -72,3 +72,11 @@ body {
   @apply opacity-50 cursor-pointer scale-[0.99];
   background: #70a3b9;
 }
+
+.positive-sign {
+  @apply text-green-500
+}
+
+.negative-sign {
+  @apply text-red-500
+}

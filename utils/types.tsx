@@ -33,12 +33,12 @@ export type ExtractedData = {
 export type TransactionHistoryTypes = {
     balance: string;
     truncateAddress: (params: string) => string;
-    publicAddress: string | null;
+    publicAddress: string;
 }
 
 export type TransactionTableProps = {
     columns: string[];
-    rows: { [key: string]: string | number | string[] }[];
+    rows: { [key: string]: string | number | string[] | JSX.Element }[];
 }
 
 export type ButtonTypes = {

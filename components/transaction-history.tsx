@@ -11,6 +11,7 @@ import TransactionTable from './ui/transactions-table';
 const TransactionHistory = ({ balance, truncateAddress, publicAddress }: TransactionHistoryTypes) => {
     const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
 
+
     useEffect(() => {
         const fetchTransactionsData = async () => {
             try {
@@ -38,13 +39,29 @@ const TransactionHistory = ({ balance, truncateAddress, publicAddress }: Transac
     }, [balance, publicAddress]);
 
 
+
+
     const columns = ['From', 'To', 'Amount'];
-    const rows = transactionData.map((transaction) => ({
-        From: truncateAddress(transaction.from),
-        Date: transaction.timestamp,
-        To: truncateAddress(transaction.to),
-        Amount: `$ ${Number(transaction.valueInUSD / 1e18).toFixed(3)}`,
-    }));
+    const rows = transactionData.map((transaction) => {
+        // these value need to be toLowerCase() before beeing compared because they got different cases.
+        const transactionToToLowerCase = transaction.to.toLowerCase();
+        const publicAddressToLowerCase = publicAddress.toLowerCase();
+
+        const signs = transactionToToLowerCase === publicAddressToLowerCase ? "+" : "-"
+        const signsColor = signs === "+" ? "positive-sign" : "negative-sign";
+
+        return {
+            From: truncateAddress(transaction.from),
+            Date: transaction.timestamp,
+            To: truncateAddress(transaction.to),
+            Amount: (
+                <span className={signsColor}>
+
+                    {signs} ${Number(transaction.valueInUSD / 1e18).toFixed(3)}
+                </span>
+            ),
+        }
+    });
 
     return (
         <div>

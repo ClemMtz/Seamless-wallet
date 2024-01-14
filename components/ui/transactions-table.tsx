@@ -15,7 +15,7 @@ const TransactionTable = ({ columns, rows }: TransactionTableProps) => {
                 {rows.map((row, rowIndex) => (
                     <tr key={rowIndex} >
                         {columns.map((column, colIndex) => (
-                            <td className="pt-1 pb-2 pr-2 pl-4" key={colIndex}>
+                            <td className="pt-1 pb-2 pr-2 pl-[0.6rem]" key={colIndex}>
                                 {column === 'From' ? (
                                     <>
                                         <span className="text-gray-600">{row.Date}</span>
