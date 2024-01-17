@@ -1,7 +1,10 @@
 import { TransactionTableProps } from "@/utils/types";
 
 
+
 const TransactionTable = ({ columns, rows }: TransactionTableProps) => {
+
+
     return (
         <table className="mt-2 flex flex-col justify-center gap-1 text-sm">
             <thead>
@@ -11,7 +14,7 @@ const TransactionTable = ({ columns, rows }: TransactionTableProps) => {
                     ))}
                 </tr>
             </thead>
-            <tbody className="overflow-auto h-[11rem] scrollbar-none">
+            <tbody className="h-[6rem] transaction-history overflow-auto ">
                 {rows.map((row, rowIndex) => (
                     <tr key={rowIndex} >
                         {columns.map((column, colIndex) => (

@@ -20,6 +20,7 @@ const Dashboard = ({ setToken }: LoginProps) => {
     const router = useRouter();
 
     const [balance, setBalance] = useState("");
+    console.log(balance)
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
     const truncateAddress = (address: string | undefined) => {
@@ -39,16 +40,18 @@ const Dashboard = ({ setToken }: LoginProps) => {
                     if (metadata) {
                         localStorage.setItem('user', metadata?.publicAddress!);
                         setPublicAddress(metadata?.publicAddress!);
+
+                        await getBalance();
                     }
                 } catch (e) {
                     console.error('error in fetching address: ' + e);
                 }
             }
         };
-        setTimeout(() => checkLoginandGetBalance(), 5000);
-    }, []);
+        checkLoginandGetBalance();
+    }, [magic]);
 
-    const getBalance = useCallback(async () => {
+    const getBalance = async () => {
         if (publicAddress && web3) {
             const balanceInWei = await web3.eth.getBalance(publicAddress);
             const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
@@ -57,25 +60,34 @@ const Dashboard = ({ setToken }: LoginProps) => {
             const exchangeRateData = await response.json();
             const exchangeRate = exchangeRateData.USD;
 
-            const balanceInUSD = (parseFloat(balanceInEther) * exchangeRate).toFixed(2);
+            let balanceInUSD = parseFloat(balanceInEther) * exchangeRate;
 
-            setBalance(balanceInUSD);
+            if (balanceInUSD < 0.01) {
+                balanceInUSD = 0;
+            }
+
+            setBalance(balanceInUSD.toFixed(2));
         }
-    }, [web3, publicAddress]);
-
-    const showBalance = useCallback(async () => {
-        await getBalance();
-    }, [getBalance]);
+    };
 
     useEffect(() => {
-        if (web3) {
-            showBalance();
-        }
-    }, [web3]);
+        const updateBalance = async () => {
+            if (publicAddress && web3) {
+                await getBalance();
+            }
+        };
+
+        updateBalance();
+    }, [publicAddress, web3, balance]);
 
     useEffect(() => {
-        setBalance("");
+        const resetBalance = () => {
+            setBalance("");
+        };
+
+        resetBalance();
     }, [magic]);
+
 
     const showAddress = () => {
         magic?.wallet.showAddress()
@@ -105,7 +117,7 @@ const Dashboard = ({ setToken }: LoginProps) => {
             </div>
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
-                <Buttons sendToken={sendToken} showAddress={showAddress} />
+                <Buttons sendToken={sendToken} showAddress={showAddress} balance={balance} />
                 <TransactionHistory balance={balance} truncateAddress={truncateAddress} publicAddress={publicAddress} />
             </div>
         </div>

@@ -80,3 +80,36 @@ body {
 .negative-sign {
   @apply text-red-500
 }
+
+
+
+@media screen and (min-height: 740px) {
+  .transaction-history {
+    height: 9.5rem;
+  }
+}
+
+
+@media screen and (min-height: 844px) {
+  .transaction-history {
+    height: 16.5rem;
+  }
+}
+
+@media screen and (min-height: 896px) {
+  .transaction-history {
+    height: 20rem;
+  }
+}
+
+@media screen and (min-height: 915px) {
+  .transaction-history {
+    height: 21rem;
+  }
+}
+
+@media screen and (min-height: 932px) {
+  .transaction-history {
+    height: 22rem;
+  }
+}
