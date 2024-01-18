@@ -1,19 +1,18 @@
 import axios, { AxiosResponse } from 'axios';
 import { Transaction } from '@/utils/types';
-import { ApiParams } from '@/utils/types';
 import { API_POLYGON_SCAN } from '@/utils/api-urls';
 
 export const getTransactions = async (
     address: string,
-    startblock: number = 0,
-    endblock: number = 99999999,
-    page: number = 1,
-    offset: number = 10,
-    sort: string = 'asc',
+    startblock: 0,
+    endblock: 99999999,
+    page: 1,
+    offset: 10,
+    sort: 'asc',
     apiKey: string
-): Promise<Transaction[]> => {
+): Promise<Transaction> => {
     try {
-        const params: ApiParams = {
+        const params = {
             module: 'account',
             action: 'txlist',
             address,
@@ -25,7 +24,7 @@ export const getTransactions = async (
             apikey: apiKey,
         };
 
-        const response: AxiosResponse<{ result: Transaction[] }> = await axios.get(API_POLYGON_SCAN, { params });
+        const response: AxiosResponse<{ result: Transaction }> = await axios.get(API_POLYGON_SCAN, { params });
 
         return response.data.result;
     } catch (error) {

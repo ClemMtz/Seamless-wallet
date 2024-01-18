@@ -8,18 +8,21 @@ export type LoginProps = {
 export type { Magic } from '@/provider/magic-provider'
 
 export type Transaction = {
-    blockNumber: string;
-    timeStamp: string;
-    hash: string;
+    map: any
+    address: string,
+    startblock: number;
+    endblock: number;
+    page: number;
+    offset: number;
+    sort: string;
+    apiKey: string;
+    value: number;
     from: string;
     to: string;
-    value: number;
-    gas: string;
-    gasPrice: string;
-    isError: string;
-    txreceipt_status: string;
-    input: string;
+    timeStamp: string;
 }
+
+
 
 
 

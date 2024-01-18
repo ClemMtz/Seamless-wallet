@@ -20,7 +20,6 @@ const Dashboard = ({ setToken }: LoginProps) => {
     const router = useRouter();
 
     const [balance, setBalance] = useState("");
-    console.log(balance)
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
     const truncateAddress = (address: string | undefined) => {

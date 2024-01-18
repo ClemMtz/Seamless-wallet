@@ -10,6 +10,7 @@ import TransactionTable from './ui/transactions-table';
 
 const TransactionHistory = ({ balance, truncateAddress, publicAddress }: TransactionHistoryTypes) => {
     const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
+    console.log(transactionData)
 
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const TransactionHistory = ({ balance, truncateAddress, publicAddress }: Transac
 
                 const transactions = await getTransactions(address as string, 0, 99999999, 1, 10, 'asc', apiKey as string) || [];
 
-                const extractedDataPromises = transactions.map(async (transaction) => {
+                const extractedDataPromises = transactions.map(async (transaction: any) => {
                     const extracted = await extractTransactionsData(transaction);
                     return extracted;
                 });
@@ -45,7 +46,7 @@ const TransactionHistory = ({ balance, truncateAddress, publicAddress }: Transac
     const rows = transactionData.map((transaction) => {
         // these value need to be toLowerCase() before beeing compared because they got different cases.
         const transactionToToLowerCase = transaction.to.toLowerCase();
-        const publicAddressToLowerCase = publicAddress.toLowerCase();
+        const publicAddressToLowerCase = publicAddress?.toLowerCase();
 
         const signs = transactionToToLowerCase === publicAddressToLowerCase ? "+" : "-"
         const signsColor = signs === "+" ? "positive-sign" : "negative-sign";
