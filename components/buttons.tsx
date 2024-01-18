@@ -9,10 +9,12 @@ const Buttons = ({ sendToken, showAddress, balance }: ButtonTypes) => {
     console.log(balance)
     return (
         <div className='flex flex-row gap-16 mb-16'>
-            <button className='flex flex-col items-center gap-2'>
-                <div className='w-14 h-14 bg-gray-200 rounded-full flex justify-center items-center'><FiPlus size={35} /></div>
-                <h1 className='text-gray-700'>Add</h1>
-            </button>
+            <a href="https://global.transak.com/" target="_blank">
+                <button className='flex flex-col items-center gap-2'>
+                    <div className='w-14 h-14 bg-gray-200 rounded-full flex justify-center items-center'><FiPlus size={35} /></div>
+                    <h1 className='text-gray-700'>Add</h1>
+                </button>
+            </a>
             <button className='flex flex-col items-center gap-2' onClick={sendToken} disabled={balance <= "0.00"}>
                 <div className={`w-14 h-14 bg-gray-200 disabled:opacity-40 rounded-full flex justify-center items-center ${balance <= "0.00" ? 'opacity-40' : ''}`}>
                     <FiSend size={30} />
