@@ -11,6 +11,8 @@ import Buttons from './buttons';
 import TransactionHistory from './transaction-history';
 
 import { VscAccount } from "react-icons/vsc";
+import { PiAddressBookLight } from "react-icons/pi";
+
 import { LoginProps } from '@/utils/types';
 import { API_MATIC_TO_DOLLAR } from '@/utils/api-urls';
 
@@ -100,6 +102,10 @@ const Dashboard = ({ setToken }: LoginProps) => {
         router.push("/account");
     };
 
+    const openAddressBook = () => {
+        router.push("/adressBook");
+    }
+
     const disconnect = useCallback(async () => {
         if (magic) {
             await logout(setToken, magic);
@@ -110,9 +116,14 @@ const Dashboard = ({ setToken }: LoginProps) => {
 
     return (
         <div className="bg-white h-screen w-screen">
-            <div className='flex flex-row justify-between mb-24 p-6'>
-                <button className='' onClick={openAccountOptions}><VscAccount size={30} /></button>
-                <button onClick={disconnect} className='text-[#3b92b4] text-lg'>Log out</button>
+            <div className='flex flex-row justify-between mb-20 p-6'>
+                <div className='flex flex-col justify-center items-center gap-4 h-24 w-10 border border-gray-200 rounded-2xl shadow-md'>
+                    <button className='' onClick={openAccountOptions}><VscAccount size={30} /></button>
+                    <button className='' onClick={openAddressBook}><PiAddressBookLight size={33} /></button>
+                </div>
+                <button onClick={disconnect} className='text-[#3b92b4] text-lg h-10 w-24 border border-gray-200 rounded-2xl shadow-md'>
+                    Log out
+                </button>
             </div>
             <div className='flex flex-col items-center'>
                 <UserInfos truncateAddress={truncateAddress} balance={balance} publicAddress={publicAddress} />
