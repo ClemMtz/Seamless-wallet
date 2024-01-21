@@ -14,7 +14,7 @@ const TransactionTable = ({ columns, rows }: TransactionTableProps) => {
                     ))}
                 </tr>
             </thead>
-            <tbody className="h-[6rem] transaction-history overflow-auto ">
+            <tbody className="h-[6rem] 'transaction-history'  overflow-auto">
                 {rows.map((row, rowIndex) => (
                     <tr key={rowIndex} >
                         {columns.map((column, colIndex) => (

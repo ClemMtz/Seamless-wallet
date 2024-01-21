@@ -4,14 +4,38 @@ import AddressBookTable from '@/components/ui/address-book-table';
 import { useRouter } from 'next/navigation';
 import { RxCross2 } from "react-icons/rx";
 import { FiPlus } from "react-icons/fi";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddressBookModal from '@/components/ui/address-book-modal';
+import { getAddressBook } from '@/actions/get-address-book';
+import { AddressBookData } from "@/utils/types";
+import { UsePublicAddress } from '@/hooks/public-address';
 
 
 const Account = () => {
     const [isOpenAddressBookModal, setIsOpenAddressBookModal] = useState(false);
+    const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
 
     const router = useRouter();
+    const publicAddress = UsePublicAddress();
+
+    useEffect(() => {
+        const fetchAddressBookData = async () => {
+            try {
+
+
+                const addresBook = await getAddressBook();
+
+                setAddressBookData(addresBook as AddressBookData[]);
+            } catch (error) {
+                console.error('Error fetching transactions:', error);
+
+            }
+        };
+
+        fetchAddressBookData();
+
+    }, []);
+
 
     const openAddressBookModal = () => {
         setIsOpenAddressBookModal((prev: boolean) => prev = true);
@@ -22,8 +46,20 @@ const Account = () => {
         router.push("/");
     }
 
-    const columns = ['Name', 'Address'];
-    const rows = "";
+    const columns = ['Name', 'Address', 'Actions'];
+    const rows = addressBookData.map((addressBook) => {
+        const publicAddressData = addressBook.publicAddress;
+
+        if (publicAddressData === publicAddress) {
+            return {
+                Name: addressBook.name,
+                Address: addressBook.address,
+                Action: "",
+            };
+
+        }
+        return "";
+    });
 
     return (
         <div className='h-screen w-screen bg-white'>

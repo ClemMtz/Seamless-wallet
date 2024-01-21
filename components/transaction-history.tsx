@@ -10,7 +10,7 @@ import TransactionTable from './ui/transactions-table';
 
 const TransactionHistory = ({ balance, truncateAddress, publicAddress }: TransactionHistoryTypes) => {
     const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
-    console.log(transactionData)
+
 
 
     useEffect(() => {

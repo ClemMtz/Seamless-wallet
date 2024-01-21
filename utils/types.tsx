@@ -59,3 +59,12 @@ export type AddressBookModalProps = {
     setIsOpenAddressBookModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export type AddressBookData = {
+    id: string;
+    name: string;
+    address: string;
+    publicAddress: string;
+    createdAt: string;
+    updatedAt: string;
+}
+

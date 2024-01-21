@@ -7,12 +7,16 @@ import { AddressBookFormProps } from '@/utils/types';
 
 import axios from 'axios';
 
+import { UsePublicAddress } from '@/hooks/public-address';
+
 
 
 const AddressBookForm = ({ closeAddressBookModal }: AddressBookFormProps) => {
+    const publicAddress = UsePublicAddress();
     const [formData, setFormData] = useState({
         name: '',
         address: '',
+        publicAddress: publicAddress
     });
 
 
@@ -31,7 +35,7 @@ const AddressBookForm = ({ closeAddressBookModal }: AddressBookFormProps) => {
         e.preventDefault();
 
         try {
-            await axios.post("/api/addressBook", formData);
+            const response = await axios.post("/api/addressBook", formData);
 
             showToast({
                 message: 'AddressBook successfully created!',
@@ -39,6 +43,7 @@ const AddressBookForm = ({ closeAddressBookModal }: AddressBookFormProps) => {
             });
 
             closeAddressBookModal();
+            console.log(response.data)
         } catch (error) {
             showToast({
                 message: 'Something went wrong. Please try again',
