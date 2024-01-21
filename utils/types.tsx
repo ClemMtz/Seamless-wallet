@@ -50,3 +50,12 @@ export type ButtonTypes = {
     balance: string;
 }
 
+
+export type AddressBookFormProps = {
+    closeAddressBookModal: () => void;
+}
+
+export type AddressBookModalProps = {
+    setIsOpenAddressBookModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+

@@ -1,9 +1,14 @@
 import React from 'react'
+
+import { AddressBookModalProps } from '@/utils/types';
+
 import { RxCross2 } from "react-icons/rx";
+
 import AddressBookForm from './address-book-form';
 
 
-const AddressBookModal = ({ setIsOpenAddressBookModal }: any) => {
+
+const AddressBookModal = ({ setIsOpenAddressBookModal }: AddressBookModalProps) => {
 
     const closeAddressBookModal = () => {
         setIsOpenAddressBookModal((prev: boolean) => prev = false)
@@ -19,7 +24,7 @@ const AddressBookModal = ({ setIsOpenAddressBookModal }: any) => {
                         <RxCross2 size={30} />
                     </button>
                 </div>
-                <AddressBookForm />
+                <AddressBookForm closeAddressBookModal={closeAddressBookModal} />
             </div>
         </div>
     )
