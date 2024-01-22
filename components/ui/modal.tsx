@@ -8,7 +8,7 @@ import AddressBookForm from './address-book-form';
 
 
 
-const AddressBookModal = ({ setIsOpenAddressBookModal }: AddressBookModalProps) => {
+const Modal = ({ setIsOpenAddressBookModal }: AddressBookModalProps) => {
 
     const closeAddressBookModal = () => {
         setIsOpenAddressBookModal((prev: boolean) => prev = false)
@@ -30,4 +30,4 @@ const AddressBookModal = ({ setIsOpenAddressBookModal }: AddressBookModalProps) 
     )
 }
 
-export default AddressBookModal;
+export default Modal;

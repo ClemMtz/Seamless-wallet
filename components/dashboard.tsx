@@ -16,21 +16,17 @@ import { PiAddressBookLight } from "react-icons/pi";
 import { LoginProps } from '@/utils/types';
 import { API_MATIC_TO_DOLLAR } from '@/utils/api-urls';
 
+import { UseTruncateAddress } from '@/hooks/use-truncate-address';
+
 
 const Dashboard = ({ setToken }: LoginProps) => {
     const { magic, web3 } = useMagic();
     const router = useRouter();
+    const truncateAddress = UseTruncateAddress();
 
     const [balance, setBalance] = useState("");
     const [publicAddress, setPublicAddress] = useState(localStorage.getItem('user'));
 
-    const truncateAddress = (address: string | undefined) => {
-        if (!address) {
-            return "";
-        }
-        const truncatedAddress = `${address.slice(0, 6)}...${address.slice(-6)}`;
-        return truncatedAddress;
-    };
 
     useEffect(() => {
         const checkLoginandGetBalance = async () => {
