@@ -1,15 +1,18 @@
-import { AddressBookFormProps } from "@/utils/types";
+import { UpdateAddressBookFormProps } from "@/utils/types";
 
 import { RxCross2 } from "react-icons/rx";
 
 import { UsePublicAddress } from "@/hooks/use-public-address";
 import showToast from "@/utils/show-toast";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AddressBookForm = ({
+const UpdateAddressBookForm = ({
   setIsOpenAddressBookModal,
-}: AddressBookFormProps) => {
+  editData,
+  setEditData,
+  selectedAddressBookId,
+}: UpdateAddressBookFormProps) => {
   const publicAddress = UsePublicAddress();
 
   const [formData, setFormData] = useState({
@@ -18,10 +21,21 @@ const AddressBookForm = ({
     publicAddress: publicAddress,
   });
 
+  useEffect(() => {
+    if (editData) {
+      setFormData({
+        name: editData.name,
+        address: editData.address,
+        publicAddress: publicAddress,
+      });
+    }
+  }, [editData, publicAddress]);
+
   const { name, address } = formData;
 
   const closeAddressBookModal = () => {
     setIsOpenAddressBookModal(false);
+    setEditData(null);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,10 +48,10 @@ const AddressBookForm = ({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("/api/addressBook", formData);
+      await axios.patch(`/api/addressBook/${selectedAddressBookId}`);
 
       showToast({
-        message: "AddressBook successfully created!",
+        message: "AddressBook successfully updated!",
         type: "success",
       });
 
@@ -94,7 +108,7 @@ const AddressBookForm = ({
               className="text-[#3b92b4] text-xl h-10 w-24 border border-gray-200 rounded-2xl shadow-md disabled:opacity-50"
               disabled={name && address ? false : true}
             >
-              Create
+              Update
             </button>
           </div>
         </form>
@@ -103,4 +117,4 @@ const AddressBookForm = ({
   );
 };
 
-export default AddressBookForm;
+export default UpdateAddressBookForm;

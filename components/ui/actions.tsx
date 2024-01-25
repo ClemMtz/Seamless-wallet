@@ -1,31 +1,69 @@
-import React from 'react'
-
+import showToast from "@/utils/show-toast";
+import axios from "axios";
 import { FaRegCopy } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrDocumentUpdate } from "react-icons/gr";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const Actions = ({ copyToClipboard, address, openAddressBookModal }: any) => {
-    return (
-        <div className='h-32 w-20 bg-white border border-gray-200 rounded-lg absolute right-10'>
-            <div className='flex flex-row justify-center items-center h-10 gap-1'>
-                <button onClick={() => copyToClipboard(address)}><FaRegCopy size={20} /></button>
-                <p>Copy</p>
-            </div>
-            <hr />
-            <div className='flex flex-row justify-center items-center h-10 gap-1'>
-                <button><GrDocumentUpdate size={20} onClick={openAddressBookModal} /></button>
-                <p>Update</p>
-            </div>
-            <hr />
-            <div className='flex flex-row justify-center items-center h-10 gap-1'>
-                <button><RiDeleteBin6Line size={20} /></button>
-                <p>delete</p>
-            </div>
+const Actions = ({
+  copyToClipboard,
+  address,
+  openAddressBookModal,
+  selectedAddressBookId,
+  onDelete,
+  editData,
+}: any) => {
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/addressBook/${selectedAddressBookId}`);
+      showToast({
+        message: "AddressBook successfully deleted!",
+        type: "success",
+      });
+      if (onDelete) {
+        onDelete(selectedAddressBookId);
+      }
+    } catch (error) {
+      showToast({
+        message: "Something went wrong. Please try again",
+        type: "error",
+      });
+    }
+  };
 
+  const handleUpdate = () => {
+    openAddressBookModal(editData);
+  };
 
-
+  return (
+    <div className="h-32 w-20 bg-white border border-gray-200 rounded-lg absolute top-0 right-4 z-20">
+      <button
+        className="flex flex-row justify-center items-center h-10 gap-1 pl-1"
+        onClick={() => copyToClipboard(address)}
+      >
+        <div>
+          <FaRegCopy size={20} />
         </div>
-    )
-}
+        <p>Copy</p>
+      </button>
+      <hr />
+      <button className="flex flex-row justify-center items-center h-10 gap-1 pl-1">
+        <div>
+          <GrDocumentUpdate size={20} onClick={handleUpdate} />
+        </div>
+        <p>Update</p>
+      </button>
+      <hr />
+      <button
+        className="flex flex-row justify-center items-center h-10 gap-1 pl-1"
+        onClick={handleDelete}
+      >
+        <div>
+          <RiDeleteBin6Line size={20} />
+        </div>
+        <p>delete</p>
+      </button>
+    </div>
+  );
+};
 
-export default Actions
+export default Actions;
