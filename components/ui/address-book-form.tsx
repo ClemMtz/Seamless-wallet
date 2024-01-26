@@ -9,6 +9,7 @@ import { useState } from "react";
 
 const AddressBookForm = ({
   setIsOpenAddressBookModal,
+  pushAddressBookDataEntryEndArray,
 }: AddressBookFormProps) => {
   const publicAddress = UsePublicAddress();
 
@@ -34,13 +35,14 @@ const AddressBookForm = ({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("/api/addressBook", formData);
+      const response = await axios.post("/api/addressBook", formData);
+      const newItem = response.data;
 
       showToast({
         message: "AddressBook successfully created!",
         type: "success",
       });
-
+      pushAddressBookDataEntryEndArray(newItem);
       closeAddressBookModal();
     } catch (error) {
       showToast({

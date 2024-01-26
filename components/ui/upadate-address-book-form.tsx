@@ -11,11 +11,11 @@ const UpdateAddressBookForm = ({
   setIsOpenAddressBookModal,
   editData,
   setEditData,
-  selectedAddressBookId,
 }: UpdateAddressBookFormProps) => {
   const publicAddress = UsePublicAddress();
 
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
     address: "",
     publicAddress: publicAddress,
@@ -24,6 +24,7 @@ const UpdateAddressBookForm = ({
   useEffect(() => {
     if (editData) {
       setFormData({
+        id: editData.id,
         name: editData.name,
         address: editData.address,
         publicAddress: publicAddress,
@@ -48,13 +49,12 @@ const UpdateAddressBookForm = ({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.patch(`/api/addressBook/${selectedAddressBookId}`);
+      await axios.patch(`/api/addressBook/${editData?.id}`, formData);
 
       showToast({
         message: "AddressBook successfully updated!",
         type: "success",
       });
-
       closeAddressBookModal();
     } catch (error) {
       showToast({

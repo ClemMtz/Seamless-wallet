@@ -18,7 +18,6 @@ import { RxCross2 } from "react-icons/rx";
 const Account = () => {
   const [isOpenAddressBookModal, setIsOpenAddressBookModal] = useState(false);
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
-  // console.log(addressBookData);
   const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
   const [editData, setEditData] = useState<AddressBookData | null>(null);
@@ -77,6 +76,10 @@ const Account = () => {
     setAddressBookData(updatedAddressBookData);
   };
 
+  const pushAddressBookDataEntryEndArray = (newItem: AddressBookData) => {
+    setAddressBookData((prevData) => [...prevData, newItem]);
+  };
+
   const columns = ["Name", "Address", "Actions"];
   const rows = addressBookData.map((addressBook) => {
     const publicAddressData = addressBook.publicAddress;
@@ -121,11 +124,11 @@ const Account = () => {
             setIsOpenAddressBookModal={setIsOpenAddressBookModal}
             editData={editData}
             setEditData={setEditData}
-            selectedAddressBookId={selectedActionId}
           />
         ) : (
           <AddressBookForm
             setIsOpenAddressBookModal={setIsOpenAddressBookModal}
+            pushAddressBookDataEntryEndArray={pushAddressBookDataEntryEndArray}
           />
         )
       ) : (

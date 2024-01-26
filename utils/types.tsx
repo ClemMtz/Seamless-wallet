@@ -48,13 +48,13 @@ export type ButtonTypes = {
 
 export type AddressBookFormProps = {
   setIsOpenAddressBookModal: React.Dispatch<React.SetStateAction<boolean>>;
+  pushAddressBookDataEntryEndArray: (newItem: AddressBookData) => void;
 };
 
 export type UpdateAddressBookFormProps = {
   setIsOpenAddressBookModal: React.Dispatch<React.SetStateAction<boolean>>;
   editData: AddressBookData | null;
   setEditData: Dispatch<SetStateAction<AddressBookData | null>>;
-  selectedAddressBookId: string | null;
 };
 
 export type AddressBookData = {

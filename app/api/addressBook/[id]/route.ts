@@ -10,9 +10,19 @@ export async function PATCH(
     const body = await req.json();
     const { name, address } = body;
 
-    const addressBook = await prismadb.addressBook.update({
+    const existingAddressBook = await prismadb.addressBook.findUnique({
       where: {
-        id: id,
+        id: id as string,
+      },
+    });
+
+    if (!existingAddressBook) {
+      return new NextResponse("Resource Not Found", { status: 404 });
+    }
+
+    const updatedAddresssBook = await prismadb.addressBook.update({
+      where: {
+        id: id as string,
       },
       data: {
         name,
@@ -20,7 +30,7 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json(addressBook);
+    return NextResponse.json(updatedAddresssBook);
   } catch (error) {
     console.log("[ADDRESSBOOK_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
