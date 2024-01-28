@@ -1,4 +1,4 @@
-import { UpdateAddressBookFormProps } from "@/utils/types";
+import { AddressBookData, UpdateAddressBookFormProps } from "@/utils/types";
 
 import { RxCross2 } from "react-icons/rx";
 
@@ -6,11 +6,15 @@ import { UsePublicAddress } from "@/hooks/use-public-address";
 import showToast from "@/utils/show-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Spinner from "./spinner";
 
 const UpdateAddressBookForm = ({
   setIsOpenAddressBookModal,
   editData,
   setEditData,
+  setAddressBookData,
+  loading,
+  setLoading,
 }: UpdateAddressBookFormProps) => {
   const publicAddress = UsePublicAddress();
 
@@ -37,6 +41,7 @@ const UpdateAddressBookForm = ({
   const closeAddressBookModal = () => {
     setIsOpenAddressBookModal(false);
     setEditData(null);
+    setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +54,15 @@ const UpdateAddressBookForm = ({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await axios.patch(`/api/addressBook/${editData?.id}`, formData);
+
+      setAddressBookData((prevData: any) => {
+        const updatedData = prevData.map((item: AddressBookData) =>
+          item.id === editData?.id ? { ...item, ...formData } : item
+        );
+        return updatedData;
+      });
 
       showToast({
         message: "AddressBook successfully updated!",
@@ -108,7 +121,7 @@ const UpdateAddressBookForm = ({
               className="text-[#3b92b4] text-xl h-10 w-24 border border-gray-200 rounded-2xl shadow-md disabled:opacity-50"
               disabled={name && address ? false : true}
             >
-              Update
+              {loading ? <Spinner /> : "Update"}
             </button>
           </div>
         </form>

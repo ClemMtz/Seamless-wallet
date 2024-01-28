@@ -15,12 +15,13 @@ import { FiPlus } from "react-icons/fi";
 import { HiDotsVertical } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 
-const Account = () => {
+const AddressBook = () => {
   const [isOpenAddressBookModal, setIsOpenAddressBookModal] = useState(false);
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
   const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
   const [editData, setEditData] = useState<AddressBookData | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const publicAddress = UsePublicAddress();
@@ -124,11 +125,16 @@ const Account = () => {
             setIsOpenAddressBookModal={setIsOpenAddressBookModal}
             editData={editData}
             setEditData={setEditData}
+            setAddressBookData={setAddressBookData}
+            loading={loading}
+            setLoading={setLoading}
           />
         ) : (
           <AddressBookForm
             setIsOpenAddressBookModal={setIsOpenAddressBookModal}
             pushAddressBookDataEntryEndArray={pushAddressBookDataEntryEndArray}
+            loading={loading}
+            setLoading={setLoading}
           />
         )
       ) : (
@@ -162,4 +168,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AddressBook;

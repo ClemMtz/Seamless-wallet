@@ -2,7 +2,7 @@ const AddressBookTable = ({ columns, rows }: any) => {
   return (
     <table className="mt-2 flex flex-col justify-center  gap-1 text-sm z-10">
       <thead>
-        <tr className=" flex justify-center gap-20">
+        <tr className=" flex justify-center gap-16">
           {columns.map((column: any, index: any) => (
             <th key={index}>{column}</th>
           ))}
@@ -14,17 +14,13 @@ const AddressBookTable = ({ columns, rows }: any) => {
             {columns.map((column: any, colIndex: any) => (
               <td key={colIndex}>
                 {column === "Name" ? (
-                  <>
-                    <span className="text-gray-800">{row.Name}</span>
-                  </>
+                  <span className="text-gray-800 ml-1 ">{row.Name}</span>
                 ) : column === "Address" ? (
-                  <>
-                    <span className="text-gray-800 pr-12 pl-16">
-                      {row.Address}
-                    </span>
-                  </>
+                  <span className="text-gray-800 mr-6 ml-6 ">
+                    {row.Address}
+                  </span>
                 ) : (
-                  <div className="mb-4 mt-4">{row[column]}</div>
+                  <div className="mb-4 mt-4 mr-4">{row[column]}</div>
                 )}
               </td>
             ))}

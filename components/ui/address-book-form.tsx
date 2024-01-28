@@ -6,10 +6,13 @@ import { UsePublicAddress } from "@/hooks/use-public-address";
 import showToast from "@/utils/show-toast";
 import axios from "axios";
 import { useState } from "react";
+import Spinner from "./spinner";
 
 const AddressBookForm = ({
   setIsOpenAddressBookModal,
   pushAddressBookDataEntryEndArray,
+  loading,
+  setLoading,
 }: AddressBookFormProps) => {
   const publicAddress = UsePublicAddress();
 
@@ -23,6 +26,7 @@ const AddressBookForm = ({
 
   const closeAddressBookModal = () => {
     setIsOpenAddressBookModal(false);
+    setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +39,7 @@ const AddressBookForm = ({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post("/api/addressBook", formData);
       const newItem = response.data;
 
@@ -96,7 +101,7 @@ const AddressBookForm = ({
               className="text-[#3b92b4] text-xl h-10 w-24 border border-gray-200 rounded-2xl shadow-md disabled:opacity-50"
               disabled={name && address ? false : true}
             >
-              Create
+              {loading ? <Spinner /> : "Create"}
             </button>
           </div>
         </form>
