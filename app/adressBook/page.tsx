@@ -5,7 +5,7 @@ import Actions from "@/components/ui/actions";
 import AddressBookForm from "@/components/ui/address-book-form";
 import AddressBookTable from "@/components/ui/address-book-table";
 import UpdateAddressBookForm from "@/components/ui/upadate-address-book-form";
-import { UsePublicAddress } from "@/hooks/use-public-address";
+import { usePublicAddress } from "@/hooks/use-public-address";
 import { UseTruncateAddress } from "@/hooks/use-truncate-address";
 import showToast from "@/utils/show-toast";
 import { AddressBookData } from "@/utils/types";
@@ -24,7 +24,7 @@ const AddressBook = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const publicAddress = UsePublicAddress();
+  const publicAddress = usePublicAddress();
   const truncateAddress = UseTruncateAddress();
 
   useEffect(() => {
@@ -105,6 +105,7 @@ const AddressBook = () => {
                   selectedAddressBookId={selectedActionId}
                   onDelete={handleDeleteAddressBookEntry}
                   editData={editData}
+                  setEditData={setEditData}
                 />
               </>
             ) : (

@@ -11,6 +11,7 @@ const Actions = ({
   selectedAddressBookId,
   onDelete,
   editData,
+  setEditData,
 }: any) => {
   const handleDelete = async () => {
     try {
@@ -22,6 +23,7 @@ const Actions = ({
       if (onDelete) {
         onDelete(selectedAddressBookId);
       }
+      setEditData("");
     } catch (error) {
       showToast({
         message: "Something went wrong. Please try again",

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -22,12 +22,10 @@ html,
 body {
   overflow: hidden;
   @apply m-0 p-0 bg-[#f8f8fa] scroll-pt-12;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
-
 
 .social-login-button {
   @apply flex flex-row gap-4 min-w-[296px] h-12 text-[#3C4043] transition-[0.1s] px-6 py-3 rounded-[300px] bg-[#ffffff] border-2 border-[#DADCE0] relative;
@@ -65,7 +63,8 @@ body {
 
 .login-button:hover:enabled {
   @apply cursor-pointer;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), #669ca8;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),
+    #669ca8;
 }
 
 .login-button:active:enabled {
@@ -74,21 +73,18 @@ body {
 }
 
 .positive-sign {
-  @apply text-green-500
+  @apply text-green-500;
 }
 
 .negative-sign {
-  @apply text-red-500
+  @apply text-red-500;
 }
-
-
 
 @media screen and (min-height: 740px) {
   .transaction-history {
     height: 9.5rem;
   }
 }
-
 
 @media screen and (min-height: 844px) {
   .transaction-history {

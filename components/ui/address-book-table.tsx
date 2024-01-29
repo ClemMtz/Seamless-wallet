@@ -14,7 +14,9 @@ const AddressBookTable = ({ columns, rows }: any) => {
             {columns.map((column: any, colIndex: any) => (
               <td key={colIndex}>
                 {column === "Name" ? (
-                  <span className="text-gray-800 ml-1 ">{row.Name}</span>
+                  <div className=" w-20   ">
+                    <span className="text-gray-800 ml-1  ">{row.Name}</span>
+                  </div>
                 ) : column === "Address" ? (
                   <span className="text-gray-800 mr-6 ml-6 ">
                     {row.Address}

@@ -2,7 +2,7 @@ import { AddressBookData, UpdateAddressBookFormProps } from "@/utils/types";
 
 import { RxCross2 } from "react-icons/rx";
 
-import { UsePublicAddress } from "@/hooks/use-public-address";
+import { usePublicAddress } from "@/hooks/use-public-address";
 import showToast from "@/utils/show-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ const UpdateAddressBookForm = ({
   loading,
   setLoading,
 }: UpdateAddressBookFormProps) => {
-  const publicAddress = UsePublicAddress();
+  const publicAddress = usePublicAddress();
 
   const [formData, setFormData] = useState({
     id: "",
