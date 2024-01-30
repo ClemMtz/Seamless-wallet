@@ -80,32 +80,66 @@ body {
   @apply text-red-500;
 }
 
+/* Transactions table media queries */
+
 @media screen and (min-height: 740px) {
-  .transaction-history {
+  .transaction-table {
     height: 9.5rem;
   }
 }
 
 @media screen and (min-height: 844px) {
-  .transaction-history {
+  .transaction-table {
     height: 16.5rem;
   }
 }
 
 @media screen and (min-height: 896px) {
-  .transaction-history {
+  .transaction-table {
     height: 20rem;
   }
 }
 
 @media screen and (min-height: 915px) {
-  .transaction-history {
+  .transaction-table {
     height: 21rem;
   }
 }
 
 @media screen and (min-height: 932px) {
-  .transaction-history {
+  .transaction-table {
     height: 22rem;
+  }
+}
+
+/* AddressBook table media queries */
+
+@media screen and (min-height: 740px) {
+  .addressBook-table {
+    height: 31rem;
+  }
+}
+
+@media screen and (min-height: 844px) {
+  .addressBook-table {
+    height: 37rem;
+  }
+}
+
+@media screen and (min-height: 896px) {
+  .addressBook-table {
+    height: 40rem;
+  }
+}
+
+@media screen and (min-height: 915px) {
+  .addressBook-table {
+    height: 42rem;
+  }
+}
+
+@media screen and (min-height: 932px) {
+  .addressBook-table {
+    height: 43rem;
   }
 }

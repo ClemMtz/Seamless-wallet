@@ -82,10 +82,9 @@ const AddressBook = () => {
   };
 
   const columns = ["Name", "Address", "Actions"];
-  const rows = addressBookData.map((addressBook) => {
-    const publicAddressData = addressBook.publicAddress;
-
-    if (publicAddressData === publicAddress) {
+  const rows = addressBookData
+    .filter((addressBook) => addressBook.publicAddress === publicAddress)
+    .map((addressBook) => {
       const actionId = addressBook.id;
       return {
         Name: addressBook.name,
@@ -114,9 +113,7 @@ const AddressBook = () => {
           </div>
         ),
       };
-    }
-    return "";
-  });
+    });
 
   return (
     <div className="h-screen w-screen bg-white">

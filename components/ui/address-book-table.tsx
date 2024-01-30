@@ -8,7 +8,7 @@ const AddressBookTable = ({ columns, rows }: any) => {
           ))}
         </tr>
       </thead>
-      <tbody className="mr-auto ml-auto overflow-y-auto scroll-y h-[26rem] ">
+      <tbody className="mr-auto ml-auto overflow-y-auto scroll-y h-[26rem] addressBook-table ">
         {rows.map((row: any, rowIndex: any) => (
           <tr key={rowIndex}>
             {columns.map((column: any, colIndex: any) => (
