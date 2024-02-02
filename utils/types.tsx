@@ -70,3 +70,11 @@ export type AddressBookData = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type SearchBarProps = {
+  handleSearch: (targetName: any) => void;
+};
+
+export type AddressBookTableProps = {
+  searchResult: null;
+};

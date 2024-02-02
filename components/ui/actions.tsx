@@ -37,7 +37,7 @@ const Actions = ({
   };
 
   return (
-    <div className="h-40 w-20 bg-white border border-gray-200 rounded-lg absolute top-0 right-4 z-20">
+    <div className="h-40 w-20 bg-white border border-gray-200 rounded-lg absolute top-0 right-10 z-20">
       <button
         className="flex flex-row justify-center items-center h-10 gap-1 pl-1 mt-2"
         onClick={() => copyToClipboard(address)}
