@@ -1,16 +1,16 @@
 "use client";
 
 import { getTransactions } from "@/actions/get-transactions";
+import { usePublicAddress } from "@/hooks/use-public-address";
+import useStore from "@/store";
 import { extractTransactionsData } from "@/utils/extract-transactions-data";
-import { ExtractedData, TransactionHistoryTypes } from "@/utils/types";
+import { ExtractedData } from "@/utils/types";
 import { useCallback, useEffect, useState } from "react";
 import TransactionTable from "./ui/transactions-table";
 
-const TransactionHistory = ({
-  balance,
-  truncateAddress,
-  publicAddress,
-}: TransactionHistoryTypes) => {
+const TransactionHistory = () => {
+  const publicAddress = usePublicAddress();
+  const { truncateAddress, balance } = useStore();
   const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
   //   useEffect(() => {
   const fetchTransactionsData = useCallback(async () => {

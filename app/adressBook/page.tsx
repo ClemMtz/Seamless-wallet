@@ -7,7 +7,7 @@ import AddressBookTable from "@/components/ui/address-book-table";
 import SearchBar from "@/components/ui/search-bar";
 import UpdateAddressBookForm from "@/components/ui/upadate-address-book-form";
 import { usePublicAddress } from "@/hooks/use-public-address";
-import { UseTruncateAddress } from "@/hooks/use-truncate-address";
+import useStore from "@/store";
 import showToast from "@/utils/show-toast";
 import { AddressBookData } from "@/utils/types";
 import { useRouter } from "next/navigation";
@@ -17,6 +17,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 
 const AddressBook = () => {
+  const { truncateAddress } = useStore();
   const [isOpenAddressBookModal, setIsOpenAddressBookModal] = useState(false);
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
   const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
@@ -27,7 +28,6 @@ const AddressBook = () => {
 
   const router = useRouter();
   const publicAddress = usePublicAddress();
-  const truncateAddress = UseTruncateAddress();
 
   useEffect(() => {
     const fetchAddressBookData = async () => {

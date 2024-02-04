@@ -1,10 +1,12 @@
+import useStore from "@/store";
 import { ButtonTypes } from "@/utils/types";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import { FiSend } from "react-icons/fi";
 import { GoArrowDown } from "react-icons/go";
 
-const Buttons = ({ sendToken, showAddress, balance }: ButtonTypes) => {
+const Buttons = ({ sendToken, showAddress}: ButtonTypes) => {
+  const {balance} = useStore();
   return (
     <div className="flex flex-row gap-16 mb-10">
       <a href="https://global.transak.com/" target="_blank">

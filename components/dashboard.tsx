@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { useMagic } from "@/provider/magic-provider";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import { logout } from "@/utils/common";
 import Buttons from "./buttons";
@@ -14,20 +14,16 @@ import { PiAddressBookLight } from "react-icons/pi";
 import { VscAccount } from "react-icons/vsc";
 
 import { API_MATIC_TO_DOLLAR } from "@/utils/api-urls";
-import { LoginProps } from "@/utils/types";
 
-import { UseTruncateAddress } from "@/hooks/use-truncate-address";
+import { usePublicAddress } from "@/hooks/use-public-address";
+import useStore from "@/store";
 
-const Dashboard = ({ setToken }: LoginProps) => {
+const Dashboard = () => {
+  const { setToken, balance, setBalance } = useStore();
   const { magic, web3 } = useMagic();
   const router = useRouter();
-  const truncateAddress = UseTruncateAddress();
 
-  const [balance, setBalance] = useState("");
-
-  const [publicAddress, setPublicAddress] = useState(
-    localStorage.getItem("user")
-  );
+  const publicAddress = usePublicAddress();
 
   const getBalance = useCallback(async () => {
     if (publicAddress && web3) {
@@ -56,7 +52,6 @@ const Dashboard = ({ setToken }: LoginProps) => {
           const metadata = await magic?.user.getInfo();
           if (metadata) {
             localStorage.setItem("user", metadata?.publicAddress!);
-            setPublicAddress(metadata?.publicAddress!);
 
             await getBalance();
           }
@@ -135,21 +130,9 @@ const Dashboard = ({ setToken }: LoginProps) => {
         </button>
       </div>
       <div className="flex flex-col items-center">
-        <UserInfos
-          truncateAddress={truncateAddress}
-          balance={balance}
-          publicAddress={publicAddress}
-        />
-        <Buttons
-          sendToken={sendToken}
-          showAddress={showAddress}
-          balance={balance}
-        />
-        <TransactionHistory
-          balance={balance}
-          truncateAddress={truncateAddress}
-          publicAddress={publicAddress}
-        />
+        <UserInfos />
+        <Buttons sendToken={sendToken} showAddress={showAddress} />
+        <TransactionHistory />
       </div>
     </div>
   );

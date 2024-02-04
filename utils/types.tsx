@@ -1,10 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 
-export type LoginProps = {
-  token: string;
-  setToken: Dispatch<SetStateAction<string>>;
-};
-
 export type { Magic } from "@/provider/magic-provider";
 
 export type Transaction = {
@@ -29,12 +24,6 @@ export type ExtractedData = {
   timestamp: string;
 };
 
-export type TransactionHistoryTypes = {
-  balance: string;
-  truncateAddress: (params: string) => string;
-  publicAddress: string | null;
-};
-
 export type TransactionTableProps = {
   columns: string[];
   rows: { [key: string]: string | number | string[] | JSX.Element }[];
@@ -43,7 +32,6 @@ export type TransactionTableProps = {
 export type ButtonTypes = {
   sendToken: () => void;
   showAddress: () => void;
-  balance: string;
 };
 
 export type AddressBookFormProps = {
@@ -77,4 +65,15 @@ export type SearchBarProps = {
 
 export type AddressBookTableProps = {
   searchResult: null;
+};
+
+export type StoreTypes = {
+  token: string;
+  setToken: any;
+  truncateAddress: (address: string) => string;
+  balance: string;
+  setBalance: (balance: string) => void;
+  isOpenAddressBookModal: boolean;
+  setIsOpenAddressBookModal: (isOpen: boolean) => void;
+  openAddressBookModal: (editData?: any) => void;
 };

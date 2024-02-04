@@ -3,7 +3,6 @@ import { useMagic } from "@/provider/magic-provider";
 import { useEffect, useState } from "react";
 
 export const usePublicAddress = () => {
-  // const [publicAddress, setPublicAddress] = useState<string>("");
   const [publicAddress, setPublicAddress] = useState(
     localStorage.getItem("user")
   );

@@ -1,28 +1,29 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Login from '@/components/login';
-import Dashboard from '@/components/dashboard';
+import Dashboard from "@/components/dashboard";
+import Login from "@/components/login";
+import useStore from "@/store";
 
 const Home = () => {
-  const [token, setToken] = useState('');
+  const { token, setToken } = useStore();
+  // const [token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem('token') ?? '');
+    setToken(localStorage.getItem("token") || "");
   }, [setToken]);
   return (
     <>
       {process.env.NEXT_PUBLIC_MAGIC_API_KEY && token.length > 0 ? (
         <div>
-          <Dashboard token={token} setToken={setToken} />
+          <Dashboard />
         </div>
       ) : (
-        <Login token={token} setToken={setToken} />
-      )
-      }
+        <Login />
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
