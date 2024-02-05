@@ -116,19 +116,19 @@ body {
 
 @media screen and (min-height: 740px) {
   .addressBook-table {
-    height: 31rem;
+    height: 29rem;
   }
 }
 
 @media screen and (min-height: 844px) {
   .addressBook-table {
-    height: 37rem;
+    height: 36rem;
   }
 }
 
 @media screen and (min-height: 896px) {
   .addressBook-table {
-    height: 40rem;
+    height: 39rem;
   }
 }
 

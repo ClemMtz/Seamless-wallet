@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { StoreTypes } from "./utils/types";
 
 const useStore = create<StoreTypes>((set) => ({
-  token: localStorage.getItem("token") || "",
+  token:
+    typeof window === "undefined" ? "" : localStorage.getItem("token") || "",
   setToken: (newToken: string) => set({ token: newToken }),
 
   publicAddress: localStorage.getItem("user") || "",
@@ -14,6 +15,18 @@ const useStore = create<StoreTypes>((set) => ({
   setIsOpenAddressBookModal: (isOpen) =>
     set({ isOpenAddressBookModal: isOpen }),
 
+  loading: false,
+  setLoading: (isLoaded) => set({ loading: isLoaded }),
+
+  copiedAddress: null,
+  setCopiedAddress: (address: any) => set({ copiedAddress: address }),
+
+  editData: null,
+  setEditData: (data: any) => set({ editData: data }),
+
+  searchResult: null,
+  setSearchResult: (result: any) => set({ searchResult: result }),
+
   truncateAddress: (address: string) => {
     if (!address) {
       return "";
@@ -21,8 +34,6 @@ const useStore = create<StoreTypes>((set) => ({
     const truncatedAddress = `${address.slice(0, 6)}...${address.slice(-6)}`;
     return truncatedAddress;
   },
-
-  openAddressBookModal: () => set({ isOpenAddressBookModal: true }),
 }));
 
 export default useStore;

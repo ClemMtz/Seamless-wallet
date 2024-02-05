@@ -1,10 +1,8 @@
-import { AddressBookTableProps, TransactionTableProps } from "@/utils/types";
+import useStore from "@/store";
+import { TransactionTableProps } from "@/utils/types";
 
-const AddressBookTable = ({
-  columns,
-  rows,
-  searchResult,
-}: AddressBookTableProps & TransactionTableProps) => {
+const AddressBookTable = ({ columns, rows }: TransactionTableProps) => {
+  const { searchResult } = useStore();
   const displayRows = searchResult ? searchResult : rows;
 
   return (
@@ -16,7 +14,7 @@ const AddressBookTable = ({
           ))}
         </tr>
       </thead>
-      <tbody className="mr-auto ml-auto overflow-y-auto scroll-y h-[26rem] addressBook-table">
+      <tbody className="mr-auto ml-auto overflow-y-auto scroll-y h-[24rem] addressBook-table">
         {displayRows.map((row: any, index: any) => (
           <tr key={index}>
             {columns.map((column: any, colIndex: any) => (

@@ -17,14 +17,19 @@ import { HiDotsVertical } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 
 const AddressBook = () => {
-  const { truncateAddress } = useStore();
-  const [isOpenAddressBookModal, setIsOpenAddressBookModal] = useState(false);
+  const {
+    truncateAddress,
+    isOpenAddressBookModal,
+    setIsOpenAddressBookModal,
+    setCopiedAddress,
+    editData,
+    setEditData,
+    setSearchResult,
+  } = useStore();
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
-  const [selectedActionId, setSelectedActionId] = useState<string | null>(null);
-  const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
-  const [editData, setEditData] = useState<AddressBookData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState(null);
+  const [selectedAddressBookId, setSelectedAddressBookId] = useState<
+    string | null
+  >(null);
 
   const router = useRouter();
   const publicAddress = usePublicAddress();
@@ -52,7 +57,7 @@ const AddressBook = () => {
   };
 
   const openCloseActions = (actionId: string, data: AddressBookData) => {
-    setSelectedActionId((prev) => (prev === actionId ? null : actionId));
+    setSelectedAddressBookId((prev) => (prev === actionId ? null : actionId));
     setEditData(data);
   };
 
@@ -72,15 +77,15 @@ const AddressBook = () => {
       });
   };
 
+  const pushAddressBookDataEntryEndArray = (newItem: AddressBookData) => {
+    setAddressBookData((prevData: any) => [...prevData, newItem]);
+  };
+
   const handleDeleteAddressBookEntry = async (id: string | null) => {
     const updatedAddressBookData = addressBookData.filter(
       (entry) => entry.id !== id
     );
     setAddressBookData(updatedAddressBookData);
-  };
-
-  const pushAddressBookDataEntryEndArray = (newItem: AddressBookData) => {
-    setAddressBookData((prevData) => [...prevData, newItem]);
   };
 
   const columns = ["Name", "Address", "Actions"];
@@ -96,17 +101,15 @@ const AddressBook = () => {
             onClick={() => openCloseActions(actionId, addressBook)}
             className="relative"
           >
-            {selectedActionId === actionId ? (
+            {selectedAddressBookId === actionId ? (
               <>
                 <HiDotsVertical size={20} />
                 <Actions
                   copyToClipboard={copyToClipboard}
                   address={addressBook.address}
                   openAddressBookModal={openAddressBookModal}
-                  selectedAddressBookId={selectedActionId}
+                  selectedAddressBookId={selectedAddressBookId}
                   onDelete={handleDeleteAddressBookEntry}
-                  editData={editData}
-                  setEditData={setEditData}
                 />
               </>
             ) : (
@@ -149,20 +152,10 @@ const AddressBook = () => {
     <div className="h-screen w-screen bg-white">
       {isOpenAddressBookModal ? (
         editData ? (
-          <UpdateAddressBookForm
-            setIsOpenAddressBookModal={setIsOpenAddressBookModal}
-            editData={editData}
-            setEditData={setEditData}
-            setAddressBookData={setAddressBookData}
-            loading={loading}
-            setLoading={setLoading}
-          />
+          <UpdateAddressBookForm setAddressBookData={setAddressBookData} />
         ) : (
           <AddressBookForm
-            setIsOpenAddressBookModal={setIsOpenAddressBookModal}
             pushAddressBookDataEntryEndArray={pushAddressBookDataEntryEndArray}
-            loading={loading}
-            setLoading={setLoading}
           />
         )
       ) : (
@@ -192,11 +185,7 @@ const AddressBook = () => {
         </div>
         <div>
           <hr />
-          <AddressBookTable
-            columns={columns}
-            rows={rows}
-            searchResult={searchResult}
-          />
+          <AddressBookTable columns={columns} rows={rows} />
         </div>
       </div>
     </div>

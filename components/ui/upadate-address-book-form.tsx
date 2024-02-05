@@ -3,19 +3,22 @@ import { AddressBookData, UpdateAddressBookFormProps } from "@/utils/types";
 import { RxCross2 } from "react-icons/rx";
 
 import { usePublicAddress } from "@/hooks/use-public-address";
+import useStore from "@/store";
 import showToast from "@/utils/show-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "./spinner";
 
 const UpdateAddressBookForm = ({
-  setIsOpenAddressBookModal,
-  editData,
-  setEditData,
   setAddressBookData,
-  loading,
-  setLoading,
 }: UpdateAddressBookFormProps) => {
+  const {
+    setIsOpenAddressBookModal,
+    loading,
+    setLoading,
+    editData,
+    setEditData,
+  } = useStore();
   const publicAddress = usePublicAddress();
 
   const [formData, setFormData] = useState({

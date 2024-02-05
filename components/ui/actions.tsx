@@ -1,4 +1,6 @@
+import useStore from "@/store";
 import showToast from "@/utils/show-toast";
+import { ActionTypes } from "@/utils/types";
 import axios from "axios";
 import { FaRegCopy } from "react-icons/fa";
 import { GrDocumentUpdate } from "react-icons/gr";
@@ -10,9 +12,8 @@ const Actions = ({
   openAddressBookModal,
   selectedAddressBookId,
   onDelete,
-  editData,
-  setEditData,
-}: any) => {
+}: ActionTypes) => {
+  const { editData, setEditData } = useStore();
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/addressBook/${selectedAddressBookId}`);
@@ -23,7 +24,7 @@ const Actions = ({
       if (onDelete) {
         onDelete(selectedAddressBookId);
       }
-      setEditData("");
+      setEditData(null);
     } catch (error) {
       showToast({
         message: "Something went wrong. Please try again",

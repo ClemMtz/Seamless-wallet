@@ -12,7 +12,7 @@ const TransactionHistory = () => {
   const publicAddress = usePublicAddress();
   const { truncateAddress, balance } = useStore();
   const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
-  //   useEffect(() => {
+
   const fetchTransactionsData = useCallback(async () => {
     try {
       const apiKey = process.env.API_TOKEN_POLYGON;
@@ -41,9 +41,6 @@ const TransactionHistory = () => {
       console.error("Error fetching transactions:", error);
     }
   }, [publicAddress]);
-
-  //     fetchTransactionsData();
-  //   }, [balance, publicAddress]);
 
   useEffect(() => {
     fetchTransactionsData();

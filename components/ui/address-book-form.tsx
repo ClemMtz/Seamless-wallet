@@ -1,20 +1,18 @@
-import { AddressBookFormProps } from "@/utils/types";
-
 import { RxCross2 } from "react-icons/rx";
 
 import { usePublicAddress } from "@/hooks/use-public-address";
+import useStore from "@/store";
 import showToast from "@/utils/show-toast";
+import { AddressBookFormProps } from "@/utils/types";
 import axios from "axios";
 import { useState } from "react";
 import Spinner from "./spinner";
 
 const AddressBookForm = ({
-  setIsOpenAddressBookModal,
   pushAddressBookDataEntryEndArray,
-  loading,
-  setLoading,
 }: AddressBookFormProps) => {
   const publicAddress = usePublicAddress();
+  const { setIsOpenAddressBookModal, loading, setLoading } = useStore();
 
   const [formData, setFormData] = useState({
     name: "",
