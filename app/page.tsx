@@ -8,7 +8,6 @@ import useStore from "@/store";
 
 const Home = () => {
   const { token, setToken } = useStore();
-  // const [token, setToken] = useState("");
 
   useEffect(() => {
     setToken(localStorage.getItem("token") || "");

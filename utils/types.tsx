@@ -3,25 +3,37 @@ import { Dispatch, SetStateAction } from "react";
 export type { Magic } from "@/provider/magic-provider";
 
 export type Transaction = {
-  map: any;
-  address: string;
-  startblock: number;
-  endblock: number;
-  page: number;
-  offset: number;
-  sort: string;
-  apiKey: string;
+  // map: any;
+  // address: string;
+  // startblock: number;
+  // endblock: number;
+  // page: number;
+  // offset: number;
+  // sort: string;
+  // apiKey: string;
   value: number;
   from: string;
   to: string;
   timeStamp: string;
 };
 
+export type UsdcData = {
+  module: string;
+  action: string;
+  contractaddress: string;
+  address: string | null;
+  page: number;
+  offset: number;
+  sort: string;
+  apikey: string | undefined;
+};
+
 export type ExtractedData = {
-  valueInUSD: number;
+  // valueInUSD?: number;
+  value: number;
   from: string;
   to: string;
-  timestamp: string;
+  date: string;
 };
 
 export type TransactionTableProps = {

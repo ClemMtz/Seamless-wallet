@@ -1,6 +1,4 @@
 import { getAddressBook } from "@/actions/get-address-book";
-
-import { AddressBookData } from "@/utils/types";
 import { act, render } from "@testing-library/react";
 import { useEffect, useState } from "react";
 
@@ -32,7 +30,7 @@ describe("useEffect hook", () => {
         const fetchAddressBookData = async () => {
           try {
             const addressBook = await getAddressBook();
-            setAddressBookData(addressBook as AddressBookData[]);
+            setAddressBookData(addressBook);
           } catch (error) {
             console.error("Error fetching transactions:", error);
           }
@@ -46,7 +44,7 @@ describe("useEffect hook", () => {
     }
 
     render(<Component />);
-    await act(async () => {}); // wait for promises to resolve
+    await act(async () => {});
 
     expect(result).toEqual(mockData);
   });

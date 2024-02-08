@@ -13,36 +13,87 @@ import UserInfos from "./user-info";
 import { PiAddressBookLight } from "react-icons/pi";
 import { VscAccount } from "react-icons/vsc";
 
-import { API_MATIC_TO_DOLLAR } from "@/utils/api-urls";
-
+import { GetUsdcTransaction } from "@/actions/get-usdc-transaction";
 import { usePublicAddress } from "@/hooks/use-public-address";
 import useStore from "@/store";
 
 const Dashboard = () => {
-  const { setToken, balance, setBalance } = useStore();
+  const { setToken, setBalance } = useStore();
+
   const { magic, web3 } = useMagic();
   const router = useRouter();
+  const apiKey = process.env.API_TOKEN_POLYGON;
 
   const publicAddress = usePublicAddress();
-
   const getBalance = useCallback(async () => {
     if (publicAddress && web3) {
-      const balanceInWei = await web3.eth.getBalance(publicAddress);
-      const balanceInEther = web3.utils.fromWei(balanceInWei, "ether");
+      try {
+        const usdcBalance = await GetUsdcTransaction({
+          module: "account",
+          action: "tokentx",
+          contractaddress: "0x9999f7Fea5938fD3b1E26A12c3f2fb024e194f97",
+          address: publicAddress,
+          page: 1,
+          offset: 5,
+          sort: "asc",
+          apikey: apiKey,
+        });
 
-      const response = await fetch(API_MATIC_TO_DOLLAR);
-      const exchangeRateData = await response.json();
-      const exchangeRate = exchangeRateData.USD;
+        let sum = 0;
+        usdcBalance.result.forEach((item: any) => {
+          const value = parseFloat(item.value);
+          if (item.from === publicAddress.toLocaleLowerCase()) {
+            if (!isNaN(value)) {
+              sum += value;
+            } else {
+              console.error("Invalid value:", item.value);
+            }
+          } else {
+            const subtractValue = Math.abs(value);
+            sum -= subtractValue;
+          }
+        });
+        let formattedSum: string;
 
-      let balanceInUSD = parseFloat(balanceInEther) * exchangeRate;
+        if (Math.abs(sum) >= 1000000) {
+          if (Math.abs(sum) % 1000000 === 0) {
+            formattedSum = (Math.abs(sum) / 1000000).toString();
+          } else {
+            formattedSum = (Math.abs(sum) / 1000000).toFixed(1);
+          }
+        } else {
+          formattedSum = Math.abs(sum).toString();
+        }
 
-      if (balanceInUSD < 0.01) {
-        balanceInUSD = 0;
+        setBalance(formattedSum);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
       }
-
-      setBalance(balanceInUSD.toFixed(2));
     }
-  }, [publicAddress, web3]);
+  }, [publicAddress, web3, setBalance]);
+
+  useEffect(() => {
+    getBalance();
+  }, [getBalance]);
+
+  // const getBalance = useCallback(async () => {
+  //   if (publicAddress && web3) {
+  //     const balanceInWei = await web3.eth.getBalance(publicAddress);
+  //     const balanceInEther = web3.utils.fromWei(balanceInWei, "ether");
+
+  //     const response = await fetch(API_MATIC_TO_DOLLAR);
+  //     const exchangeRateData = await response.json();
+  //     const exchangeRate = exchangeRateData.USD;
+
+  //     let balanceInUSD = parseFloat(balanceInEther) * exchangeRate;
+
+  //     if (balanceInUSD < 0.01) {
+  //       balanceInUSD = 0;
+  //     }
+
+  //     setBalance(balanceInUSD.toFixed(2));
+  //   }
+  // }, [publicAddress, web3]);
 
   useEffect(() => {
     const checkLoginandGetBalance = async () => {
@@ -63,23 +114,13 @@ const Dashboard = () => {
     checkLoginandGetBalance();
   }, [magic, getBalance]);
 
-  useEffect(() => {
-    const updateBalance = async () => {
-      if (publicAddress && web3) {
-        await getBalance();
-      }
-    };
+  // useEffect(() => {
+  //   const resetBalance = () => {
+  //     setBalance("");
+  //   };
 
-    updateBalance();
-  }, [publicAddress, web3, balance, getBalance]);
-
-  useEffect(() => {
-    const resetBalance = () => {
-      setBalance("");
-    };
-
-    resetBalance();
-  }, [magic]);
+  //   resetBalance();
+  // }, [magic, setBalance]);
 
   const showAddress = () => {
     magic?.wallet.showAddress();

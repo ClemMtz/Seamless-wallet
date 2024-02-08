@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,24 +18,17 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "--tests--/address-book.test.tsx",
+    "--tests--/extract-transaction.test.js"
   ],
-  "exclude": [
-    "node_modules"
-  ],
-  "types": [
-    "jest",
-    "node",
-    "dom",
-    "dom.testing-library"
-  ],
+  "exclude": ["node_modules"],
+  "types": ["jest", "node", "dom", "dom.testing-library"]
 }
