@@ -3,7 +3,6 @@ import useStore from "@/store";
 
 const UserInfos = () => {
   const { truncateAddress, balance } = useStore();
-
   const publicAddress = usePublicAddress();
   return (
     <div className="flex flex-col items-center">

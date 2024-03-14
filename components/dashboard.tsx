@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { useMagic } from "@/provider/magic-provider";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { logout } from "@/utils/common";
 import Buttons from "./buttons";
@@ -16,15 +16,35 @@ import { VscAccount } from "react-icons/vsc";
 import { GetUsdcTransaction } from "@/actions/get-usdc-transaction";
 import { usePublicAddress } from "@/hooks/use-public-address";
 import useStore from "@/store";
+import RechargeGasFee from "./ui/recharge-gas-fee";
 
 const Dashboard = () => {
   const { setToken, setBalance } = useStore();
+  const [maticBalance, setMaticBalance] = useState("0");
+  const [isMaticBalanceLoaded, setIsMaticBalanceLoaded] = useState(false);
 
   const { magic, web3 } = useMagic();
+  const publicAddress = usePublicAddress();
   const router = useRouter();
   const apiKey = process.env.API_TOKEN_POLYGON;
 
-  const publicAddress = usePublicAddress();
+  const getMaticBalance = useCallback(async () => {
+    if (publicAddress && web3) {
+      try {
+        const balanceInWei = await web3.eth.getBalance(publicAddress);
+        const balanceInEther = web3.utils.fromWei(balanceInWei, "ether");
+        setIsMaticBalanceLoaded(true);
+        setMaticBalance(balanceInEther);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    }
+  }, [web3, publicAddress]);
+
+  useEffect(() => {
+    getMaticBalance();
+  }, [getMaticBalance]);
+
   const getBalance = useCallback(async () => {
     if (publicAddress && web3) {
       try {
@@ -38,7 +58,6 @@ const Dashboard = () => {
           sort: "asc",
           apikey: apiKey,
         });
-
         let sum = 0;
         usdcBalance.result.forEach((item: any) => {
           const value = parseFloat(item.value);
@@ -76,25 +95,6 @@ const Dashboard = () => {
     getBalance();
   }, [getBalance]);
 
-  // const getBalance = useCallback(async () => {
-  //   if (publicAddress && web3) {
-  //     const balanceInWei = await web3.eth.getBalance(publicAddress);
-  //     const balanceInEther = web3.utils.fromWei(balanceInWei, "ether");
-
-  //     const response = await fetch(API_MATIC_TO_DOLLAR);
-  //     const exchangeRateData = await response.json();
-  //     const exchangeRate = exchangeRateData.USD;
-
-  //     let balanceInUSD = parseFloat(balanceInEther) * exchangeRate;
-
-  //     if (balanceInUSD < 0.01) {
-  //       balanceInUSD = 0;
-  //     }
-
-  //     setBalance(balanceInUSD.toFixed(2));
-  //   }
-  // }, [publicAddress, web3]);
-
   useEffect(() => {
     const checkLoginandGetBalance = async () => {
       const isLoggedIn = await magic?.user.isLoggedIn();
@@ -113,14 +113,6 @@ const Dashboard = () => {
     };
     checkLoginandGetBalance();
   }, [magic, getBalance]);
-
-  // useEffect(() => {
-  //   const resetBalance = () => {
-  //     setBalance("");
-  //   };
-
-  //   resetBalance();
-  // }, [magic, setBalance]);
 
   const showAddress = () => {
     magic?.wallet.showAddress();
@@ -172,6 +164,11 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-col items-center">
         <UserInfos />
+        {isMaticBalanceLoaded && maticBalance < "0.03" ? (
+          <RechargeGasFee />
+        ) : (
+          ""
+        )}
         <Buttons sendToken={sendToken} showAddress={showAddress} />
         <TransactionHistory />
       </div>

@@ -10,7 +10,7 @@ export const getNetworkUrl = () => {
     case Network.POLYGON:
       return "https://polygon-rpc.com/";
     case Network.POLYGON_MUMBAI:
-      return "https://rpc-mumbai.maticvigil.com/";
+      return "https://polygon-mumbai.g.alchemy.com/v2/t1DYclxlMsBr3YfU0nhaJcxtujFI_0h0";
     case Network.ETHEREUM_GOERLI:
       return "https://eth-goerli.g.alchemy.com/v2/fYFybLQFR9Zr2GCRcgALmAktStFKr0i0";
     case Network.ETHEREUM:
