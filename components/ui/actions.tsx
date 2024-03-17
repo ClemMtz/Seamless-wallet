@@ -2,6 +2,7 @@ import useStore from "@/store";
 import showToast from "@/utils/show-toast";
 import { ActionTypes } from "@/utils/types";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { FaRegCopy } from "react-icons/fa";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -13,7 +14,8 @@ const Actions = ({
   selectedAddressBookId,
   onDelete,
 }: ActionTypes) => {
-  const { editData, setEditData } = useStore();
+  const { editData, setEditData, setIsModalUnmounted } = useStore();
+
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/addressBook/${selectedAddressBookId}`);
@@ -35,10 +37,15 @@ const Actions = ({
 
   const handleUpdate = () => {
     openAddressBookModal(editData);
+    setIsModalUnmounted(false);
   };
 
   return (
-    <div className="h-40 w-20 bg-white border border-gray-200 rounded-lg absolute top-0 right-10 z-20">
+    <motion.div
+      className="h-40 w-20 bg-white border border-gray-200 rounded-lg absolute top-0 right-10 z-20"
+      initial={{ opacity: 0, translateX: 50 }}
+      animate={{ opacity: 1, translateX: 0 }}
+    >
       <button
         className="flex flex-row justify-center items-center h-10 gap-1 pl-1 mt-2"
         onClick={() => copyToClipboard(address)}
@@ -68,7 +75,7 @@ const Actions = ({
         </div>
         <p>delete</p>
       </button>
-    </div>
+    </motion.div>
   );
 };
 

@@ -73,6 +73,10 @@ export type StoreTypes = {
   truncateAddress: (address: string) => string;
   balance: string;
   setBalance: (balance: string) => void;
+  isUnmounted: boolean;
+  setIsUnmounted: (isUnmounted: boolean) => void;
+  isModalUnmounted: boolean;
+  setIsModalUnmounted: (isUnmounted: boolean) => void;
   isOpenAddressBookModal: boolean;
   setIsOpenAddressBookModal: (isOpen: boolean) => void;
   loading: boolean;

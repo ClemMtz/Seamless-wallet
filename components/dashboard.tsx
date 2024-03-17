@@ -19,7 +19,7 @@ import useStore from "@/store";
 import RechargeGasFee from "./ui/recharge-gas-fee";
 
 const Dashboard = () => {
-  const { setToken, setBalance } = useStore();
+  const { setToken, setBalance, setIsUnmounted } = useStore();
   const [maticBalance, setMaticBalance] = useState("0");
   const [isMaticBalanceLoaded, setIsMaticBalanceLoaded] = useState(false);
 
@@ -131,10 +131,12 @@ const Dashboard = () => {
 
   const openAccountOptions = () => {
     router.push("/account");
+    setIsUnmounted(false);
   };
 
   const openAddressBook = () => {
     router.push("/adressBook");
+    setIsUnmounted(false);
   };
 
   const disconnect = useCallback(async () => {

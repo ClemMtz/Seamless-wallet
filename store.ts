@@ -11,6 +11,12 @@ const useStore = create<StoreTypes>((set) => ({
   balance: "",
   setBalance: (balance) => set({ balance }),
 
+  isUnmounted: false,
+  setIsUnmounted: (isUnmounted) => set({ isUnmounted }),
+
+  isModalUnmounted: false,
+  setIsModalUnmounted: (isModalUnmounted) => set({ isModalUnmounted }),
+
   isOpenAddressBookModal: false,
   setIsOpenAddressBookModal: (isOpen) =>
     set({ isOpenAddressBookModal: isOpen }),

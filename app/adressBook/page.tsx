@@ -10,6 +10,7 @@ import { usePublicAddress } from "@/hooks/use-public-address";
 import useStore from "@/store";
 import showToast from "@/utils/show-toast";
 import { AddressBookData } from "@/utils/types";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
@@ -25,6 +26,9 @@ const AddressBook = () => {
     editData,
     setEditData,
     setSearchResult,
+    isUnmounted,
+    setIsUnmounted,
+    setIsModalUnmounted,
   } = useStore();
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
@@ -50,10 +54,12 @@ const AddressBook = () => {
 
   const openAddressBookModal = () => {
     setIsOpenAddressBookModal(true);
+    setIsModalUnmounted(false);
   };
 
   const closeAddressBook = () => {
     router.push("/");
+    setIsUnmounted(true);
   };
 
   const openCloseActions = (actionId: string, data: AddressBookData) => {
@@ -149,46 +155,58 @@ const AddressBook = () => {
     }
   };
   return (
-    <div className="h-screen w-screen bg-white">
-      {isOpenAddressBookModal ? (
-        editData ? (
-          <UpdateAddressBookForm setAddressBookData={setAddressBookData} />
-        ) : (
-          <AddressBookForm
-            pushAddressBookDataEntryEndArray={pushAddressBookDataEntryEndArray}
-          />
-        )
-      ) : (
-        ""
-      )}
-
-      <div className="flex justify-end p-4 mb-14">
-        <button
-          onClick={closeAddressBook}
-          className="h-10 w-10 border border-gray-200 rounded-full  flex justify-center items-center shadow"
+    <AnimatePresence>
+      {isUnmounted === false && (
+        <motion.div
+          className="h-screen w-screen bg-white"
+          initial={{ x: "-100vw" }}
+          animate={{ x: 0 }}
+          exit={{ x: "-100vw" }}
+          transition={{ type: "tween", duration: 0.2 }}
         >
-          <RxCross2 size={30} />
-        </button>
-      </div>
-      <div className=" p-4">
-        <div className="flex flex-row justify-between items-center mb-4">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-bold text-xl">Address Book</h1>
-            <SearchBar handleSearch={handleSearch} />
+          {isOpenAddressBookModal ? (
+            editData ? (
+              <UpdateAddressBookForm setAddressBookData={setAddressBookData} />
+            ) : (
+              <AddressBookForm
+                pushAddressBookDataEntryEndArray={
+                  pushAddressBookDataEntryEndArray
+                }
+              />
+            )
+          ) : (
+            ""
+          )}
+
+          <div className="flex justify-end p-4 mb-14">
+            <button
+              onClick={closeAddressBook}
+              className="h-10 w-10 border border-gray-200 rounded-full  flex justify-center items-center shadow"
+            >
+              <RxCross2 size={30} />
+            </button>
           </div>
-          <button
-            className="h-10 w-10 border border-gray-200 rounded-full  flex justify-center items-center shadow mt-8"
-            onClick={openAddressBookModal}
-          >
-            <FiPlus size={30} />
-          </button>
-        </div>
-        <div>
-          <hr />
-          <AddressBookTable columns={columns} rows={rows} />
-        </div>
-      </div>
-    </div>
+          <div className=" p-4">
+            <div className="flex flex-row justify-between items-center mb-4">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-bold text-xl">Address Book</h1>
+                <SearchBar handleSearch={handleSearch} />
+              </div>
+              <button
+                className="h-10 w-10 border border-gray-200 rounded-full  flex justify-center items-center shadow mt-8"
+                onClick={openAddressBookModal}
+              >
+                <FiPlus size={30} />
+              </button>
+            </div>
+            <div>
+              <hr />
+              <AddressBookTable columns={columns} rows={rows} />
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
