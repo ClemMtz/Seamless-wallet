@@ -5,6 +5,7 @@ import Actions from "@/components/ui/actions";
 import AddressBookForm from "@/components/ui/address-book-form";
 import AddressBookTable from "@/components/ui/address-book-table";
 import SearchBar from "@/components/ui/search-bar";
+import SkeletonAddressBook from "@/components/ui/skeleton-address-book";
 import UpdateAddressBookForm from "@/components/ui/upadate-address-book-form";
 import { usePublicAddress } from "@/hooks/use-public-address";
 import useStore from "@/store";
@@ -29,6 +30,8 @@ const AddressBook = () => {
     isUnmounted,
     setIsUnmounted,
     setIsModalUnmounted,
+    dataLoading,
+    setDataLoading,
   } = useStore();
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
@@ -41,12 +44,14 @@ const AddressBook = () => {
   useEffect(() => {
     const fetchAddressBookData = async () => {
       try {
+        setDataLoading(true);
         const addressBook = await getAddressBook();
 
         setAddressBookData(addressBook as AddressBookData[]);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
+      setDataLoading(false);
     };
 
     fetchAddressBookData();
@@ -201,7 +206,11 @@ const AddressBook = () => {
             </div>
             <div>
               <hr />
-              <AddressBookTable columns={columns} rows={rows} />
+              {dataLoading ? (
+                <SkeletonAddressBook />
+              ) : (
+                <AddressBookTable columns={columns} rows={rows} />
+              )}
             </div>
           </div>
         </motion.div>

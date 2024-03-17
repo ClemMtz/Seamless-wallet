@@ -14,6 +14,9 @@ const useStore = create<StoreTypes>((set) => ({
   isUnmounted: false,
   setIsUnmounted: (isUnmounted) => set({ isUnmounted }),
 
+  dataLoading: false,
+  setDataLoading: (dataLoading) => set({ dataLoading }),
+
   isModalUnmounted: false,
   setIsModalUnmounted: (isModalUnmounted) => set({ isModalUnmounted }),
 

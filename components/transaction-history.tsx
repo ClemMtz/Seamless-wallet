@@ -5,14 +5,16 @@ import { usePublicAddress } from "@/hooks/use-public-address";
 import useStore from "@/store";
 import { ExtractedData } from "@/utils/types";
 import { useCallback, useEffect, useState } from "react";
+import SkeletonTranscationHistory from "./ui/skeleton-transaction-history";
 import TransactionTable from "./ui/transactions-table";
 
 const TransactionHistory = () => {
   const publicAddress = usePublicAddress();
-  const { truncateAddress, balance } = useStore();
+  const { truncateAddress, balance, dataLoading, setDataLoading } = useStore();
   const [transactionData, setTransactionData] = useState<ExtractedData[]>([]);
   const fetchTransactionsData = useCallback(async () => {
     try {
+      setDataLoading(true);
       const apiKey = process.env.API_TOKEN_POLYGON;
 
       const transactions = await GetUsdcTransaction({
@@ -52,7 +54,8 @@ const TransactionHistory = () => {
     } catch (error) {
       console.error("Error fetching transactions:", error);
     }
-  }, [publicAddress]);
+    setDataLoading(false);
+  }, [publicAddress, setDataLoading]);
 
   useEffect(() => {
     fetchTransactionsData();
@@ -74,7 +77,6 @@ const TransactionHistory = () => {
       To: truncateAddress(transaction.to),
       Amount: (
         <span className={signsColor}>
-          {/* {signs} ${Number(transaction.value / 1e18).toFixed(3)} */}
           {signs} ${transaction.value}
         </span>
       ),
@@ -84,7 +86,11 @@ const TransactionHistory = () => {
   return (
     <div>
       <hr />
-      <TransactionTable columns={columns} rows={rows} />
+      {dataLoading ? (
+        <SkeletonTranscationHistory />
+      ) : (
+        <TransactionTable columns={columns} rows={rows} />
+      )}
     </div>
   );
 };

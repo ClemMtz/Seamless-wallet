@@ -81,6 +81,8 @@ export type StoreTypes = {
   setIsOpenAddressBookModal: (isOpen: boolean) => void;
   loading: boolean;
   setLoading: (isLoaded: boolean) => void;
+  dataLoading: boolean;
+  setDataLoading: (dataLoading: boolean) => void;
   editData: AddressBookData | null;
   setEditData: Dispatch<SetStateAction<AddressBookData | null>>;
   copiedAddress: string | null;
