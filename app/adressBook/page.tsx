@@ -7,7 +7,7 @@ import AddressBookTable from "@/components/ui/address-book-table";
 import SearchBar from "@/components/ui/search-bar";
 import SkeletonAddressBook from "@/components/ui/skeleton-address-book";
 import UpdateAddressBookForm from "@/components/ui/upadate-address-book-form";
-import { usePublicAddress } from "@/hooks/use-public-address";
+import { useMagic } from "@/provider/magic-provider";
 import useStore from "@/store";
 import showToast from "@/utils/show-toast";
 import { AddressBookData } from "@/utils/types";
@@ -37,9 +37,29 @@ const AddressBook = () => {
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
     string | null
   >(null);
+  const [publicAddress, setPublicAddress] = useState(
+    localStorage.getItem("user")
+  );
 
   const router = useRouter();
-  const publicAddress = usePublicAddress();
+  const { magic } = useMagic();
+  // const publicAddress = usePublicAddress();
+  useEffect(() => {
+    const checkPublicAddress = async () => {
+      try {
+        const metadata = await magic?.user.getInfo();
+        if (metadata) {
+          const userAddress = metadata.publicAddress;
+          localStorage.setItem("user", userAddress as string);
+          setPublicAddress(userAddress as string);
+        }
+      } catch (e) {
+        console.error("Error in fetching address: " + e);
+      }
+    };
+
+    checkPublicAddress();
+  }, [magic]);
 
   useEffect(() => {
     const fetchAddressBookData = async () => {
