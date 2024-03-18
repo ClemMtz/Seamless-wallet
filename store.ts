@@ -6,8 +6,6 @@ const useStore = create<StoreTypes>((set) => ({
     typeof window === "undefined" ? "" : localStorage.getItem("token") || "",
   setToken: (newToken: string) => set({ token: newToken }),
 
-  publicAddress: localStorage.getItem("user") || "",
-
   balance: "",
   setBalance: (balance) => set({ balance }),
 
