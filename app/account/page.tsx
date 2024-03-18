@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { RxCross2 } from "react-icons/rx";
 
+import LegalMentions from "@/components/legal-mentions";
 import UpdateEmail from "@/components/update-email";
 
 const Account = () => {
@@ -37,6 +38,7 @@ const Account = () => {
           <div className="pr-16 pl-8">
             <UpdateEmail />
           </div>
+          <LegalMentions />
         </motion.div>
       )}
     </AnimatePresence>
