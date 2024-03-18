@@ -1,6 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
@@ -38,7 +37,7 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: NextApiRequest,
+  req: Request | NextRequest,
   { params: { id } }: { params: { id: string } }
 ) {
   try {
