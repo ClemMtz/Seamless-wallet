@@ -38,31 +38,10 @@ const AddressBook = () => {
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
     string | null
   >(null);
-  // const [publicAddress, setPublicAddress] = useState(
-  //   localStorage.getItem("user")
-  // );
   const [publicAddress, setPublicAddress] = useState("");
 
   const router = useRouter();
   const { magic } = useMagic();
-  // const publicAddress = usePublicAddress();
-
-  // useEffect(() => {
-  //   const checkPublicAddress = async () => {
-  //     try {
-  //       const metadata = await magic?.user.getInfo();
-  //       if (metadata) {
-  //         const userAddress = metadata.publicAddress;
-  //         localStorage.setItem("user", userAddress as string);
-  //         setPublicAddress(userAddress as string);
-  //       }
-  //     } catch (e) {
-  //       console.error("Error in fetching address: " + e);
-  //     }
-  //   };
-
-  //   checkPublicAddress();
-  // }, [magic]);
 
   useEffect(() => {
     const checkPublicAddress = async () => {
@@ -78,7 +57,6 @@ const AddressBook = () => {
       }
     };
 
-    // Check if localStorage has the user address
     const storedUserAddress = localStorage.getItem("user");
     if (storedUserAddress) {
       setPublicAddress(storedUserAddress);
