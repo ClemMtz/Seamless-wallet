@@ -62,6 +62,7 @@ const AddressBook = () => {
   const openAddressBookModal = () => {
     setIsOpenAddressBookModal(true);
     setIsModalUnmounted(false);
+    setEditData(null);
   };
 
   const closeAddressBook = () => {
