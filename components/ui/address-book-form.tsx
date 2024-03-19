@@ -12,6 +12,7 @@ const AddressBookForm = ({
   pushAddressBookDataEntryEndArray,
 }: AddressBookFormProps) => {
   const publicAddress = usePublicAddress();
+  console.log(publicAddress);
   const {
     setIsOpenAddressBookModal,
     loading,
@@ -45,7 +46,14 @@ const AddressBookForm = ({
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post("/api/addressBook", formData);
+      const formDataWithPublicAddress = {
+        ...formData,
+        publicAddress: publicAddress,
+      };
+      const response = await axios.post(
+        "/api/addressBook",
+        formDataWithPublicAddress
+      );
       const newItem = response.data;
 
       showToast({

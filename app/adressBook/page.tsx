@@ -35,6 +35,7 @@ const AddressBook = () => {
   } = useStore();
 
   const [addressBookData, setAddressBookData] = useState<AddressBookData[]>([]);
+  console.log(addressBookData);
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
     string | null
   >(null);
