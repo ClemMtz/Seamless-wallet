@@ -12,7 +12,7 @@ const AddressBookForm = ({
   pushAddressBookDataEntryEndArray,
 }: AddressBookFormProps) => {
   const publicAddress = usePublicAddress();
-  console.log(publicAddress);
+
   const {
     setIsOpenAddressBookModal,
     loading,
