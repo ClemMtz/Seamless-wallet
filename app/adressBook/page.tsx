@@ -80,7 +80,7 @@ const AddressBook = () => {
       .then(() => {
         setCopiedAddress(address);
         showToast({
-          message: "Wallet address copied!",
+          message: "Wallet address copied !",
           type: "success",
         });
         setTimeout(() => setCopiedAddress(null), 3000);
