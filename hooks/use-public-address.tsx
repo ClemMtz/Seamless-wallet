@@ -3,9 +3,7 @@ import { useMagic } from "@/provider/magic-provider";
 import { useEffect, useState } from "react";
 
 export const usePublicAddress = () => {
-  const [publicAddress, setPublicAddress] = useState(
-    localStorage.getItem("user")
-  );
+  const [publicAddress, setPublicAddress] = useState("");
 
   const { magic } = useMagic();
 
@@ -23,7 +21,12 @@ export const usePublicAddress = () => {
       }
     };
 
-    checkPublicAddress();
+    const storedUserAddress = localStorage.getItem("user");
+    if (storedUserAddress) {
+      setPublicAddress(storedUserAddress);
+    } else {
+      checkPublicAddress();
+    }
   }, [magic]);
 
   return publicAddress;
