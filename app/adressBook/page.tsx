@@ -57,7 +57,7 @@ const AddressBook = () => {
     };
 
     fetchAddressBookData();
-  }, [publicAddress, setDataLoading, setAddressBookData]);
+  }, [publicAddress, setDataLoading]);
 
   const openAddressBookModal = () => {
     setIsOpenAddressBookModal(true);
