@@ -18,6 +18,7 @@ import { FiPlus } from "react-icons/fi";
 import { HiDotsVertical } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 
+export const fetchCache = "force-no-store";
 const AddressBook = () => {
   const {
     truncateAddress,
