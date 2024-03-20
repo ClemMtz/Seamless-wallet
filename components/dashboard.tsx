@@ -18,6 +18,8 @@ import { usePublicAddress } from "@/hooks/use-public-address";
 import useStore from "@/store";
 import RechargeGasFee from "./ui/recharge-gas-fee";
 
+export const fetchCache = "force-no-store";
+
 const Dashboard = () => {
   const { setToken, setBalance, setIsUnmounted } = useStore();
   const [maticBalance, setMaticBalance] = useState("0");
