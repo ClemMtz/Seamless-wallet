@@ -89,7 +89,7 @@ const Dashboard = () => {
         console.error("Error fetching balance:", error);
       }
     }
-  }, [publicAddress, web3, setBalance]);
+  }, [publicAddress, web3, setBalance, apiKey]);
 
   useEffect(() => {
     getBalance();
