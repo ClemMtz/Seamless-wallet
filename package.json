@@ -52,6 +52,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8",
     "prisma": "^5.8.1",
+    "@prisma/client": "^5.3.1",
+    "i": "file:prisma/client@latest",
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
