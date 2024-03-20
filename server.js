@@ -11,7 +11,7 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true);
     const { pathname } = parsedUrl;
 
-    if (pathname === "/addressBook") {
+    if (pathname === "/adressBook") {
       res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     }
 
