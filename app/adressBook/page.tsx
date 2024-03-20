@@ -38,6 +38,7 @@ const AddressBook = () => {
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
     string | null
   >(null);
+  console.log(addressBookData);
 
   const publicAddress = usePublicAddress();
   const router = useRouter();
@@ -56,7 +57,7 @@ const AddressBook = () => {
     };
 
     fetchAddressBookData();
-  }, [publicAddress]);
+  }, [publicAddress, setDataLoading]);
 
   const openAddressBookModal = () => {
     setIsOpenAddressBookModal(true);
