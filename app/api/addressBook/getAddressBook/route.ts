@@ -13,25 +13,5 @@ export async function GET(_req: Request) {
   }
 }
 
-// export async function GET(_req: Request) {
-//   try {
-//     const addressBook = await prismadb.addressBook.findMany();
-
-//     // Set Cache-Control header to prevent caching
-//     const headers = {
-//       "Cache-Control": "no-cache, no-store, must-revalidate",
-//       Pragma: "no-cache",
-//       Expires: "0",
-//     };
-
-//     return new NextResponse(JSON.stringify(addressBook), {
-//       headers,
-//       status: 200,
-//     });
-//   } catch (error) {
-//     console.log("[ADDRESSBOOK_GET]", error);
-//     return new NextResponse("Internal error", { status: 500 });
-//   }
-// }
-
+// to insure the data not to be cache and getting fresh data all the time
 export const dynamic = "force-dynamic";

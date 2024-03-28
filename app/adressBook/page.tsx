@@ -38,7 +38,6 @@ const AddressBook = () => {
   const [selectedAddressBookId, setSelectedAddressBookId] = useState<
     string | null
   >(null);
-  console.log(addressBookData);
 
   const publicAddress = usePublicAddress();
   const router = useRouter();
